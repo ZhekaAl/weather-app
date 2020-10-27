@@ -1,0 +1,55 @@
+.weather {
+  margin: 2rem;
+  background: antiquewhite;
+  border-radius: 2px;
+  max-width: 400px;
+}
+
+.city {
+  font-size: 2rem;
+  line-height: 1.3;
+  font-weight: bold;
+  margin: 1rem;
+}
+
+.weatherInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.description {
+  margin: 1rem;
+  font-size: 1.5rem;
+}
+
+.left {
+}
+.temp {
+  font-size: 8rem;
+  color: #333;
+  line-height: 1;
+  margin: 1rem;
+}
+
+.right {
+}
+
+.image {
+  width: 100px;
+}
+.image img {
+  width: 100%;
+}
+
+.dayNight {
+  font-size: 1.5rem;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.timeInfo {
+  font-size: 1.5rem;
+  margin: 1rem;
+  width: fit-content;
+}

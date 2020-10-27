@@ -1,0 +1,8 @@
+.cityInput {
+  margin: 1rem;
+  width: 20rem;
+}
+
+.autocomplete-input-wrapper {
+  transition: all 0.3s ease-in-out;
+}
