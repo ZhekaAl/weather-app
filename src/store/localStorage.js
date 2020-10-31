@@ -1,17 +1,4 @@
-// var localStorage = require('localStorage')
 
-/*saveStateToLocalStorage = () => {
-    console.log(
-      "saveStateToLocalStorage ResultViewState smallTable",
-      this.state.smallTable
-    );
-    localStorage.setItem(
-      "ResultViewState",
-      JSON.stringify({
-        smallTable: this.state.smallTable
-      })
-    );
-  };*/
 
 export const saveState = (state, version) => {
   try {

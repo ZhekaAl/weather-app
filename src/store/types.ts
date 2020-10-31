@@ -1,7 +1,48 @@
-export interface Action<P = any> {
+export interface Action<P> {
   type: string;
   payload?: P;
 }
+
+interface LoadingState {
+  errorMessage: string;
+  isLoading: boolean;
+  isLoaded: boolean;
+}
+export const getInitialLoadingState: () => LoadingState = () => {
+  const state = {
+    errorMessage: '',
+    isLoading: false,
+    isLoaded: false,
+  };
+  return state;
+};
+
+export const getIsLoadingState: () => LoadingState = () => {
+  const state = {
+    errorMessage: '',
+    isLoading: true,
+    isLoaded: false,
+  };
+  return state;
+};
+
+export const getSuccesLoadedState: () => LoadingState = () => {
+  const state = {
+    errorMessage: '',
+    isLoading: false,
+    isLoaded: true,
+  };
+  return state;
+};
+
+export const getErrorLoadedState: (error: string) => LoadingState = (error) => {
+  const state = {
+    errorMessage: error,
+    isLoading: false,
+    isLoaded: true,
+  };
+  return state;
+};
 
 export interface CityInner {
   id: number;
@@ -65,7 +106,11 @@ export interface WeatherInner {
   cod: number;
 }
 
-export type Weather = WeatherInner | undefined;
+export interface Weather {
+  loadingState: LoadingState;
+  weatherInfo: WeatherInner | undefined;
+  id: number;
+}
 
 export enum ACTION_TYPES {
   FETCH_CITIES_START = 'FETCH_CITIES_START',
@@ -77,23 +122,56 @@ export enum ACTION_TYPES {
   FETCH_WEATHER_CITY_START = 'FETCH_WEATHER_CITY_START',
   FETCH_WEATHER_CITY_SUCCESS = 'FETCH_WEATHER_CITY_SUCCESS',
   FETCH_WEATHER_CITY_ERROR = 'FETCH_WEATHER_CITY_ERROR',
+
+  REMOVE_CITY = 'REMOVE_CITY',
 }
 
 export interface StateCities {
-  citiesRu: Array<City>;
-  current: number | undefined;
+  citiesRu: City[];
   errorMessage: string;
   isLoading: boolean;
 }
 
-export interface StateCurrent {
-  weather: Weather;
+export interface StateWeatherList {
+  weatherList: Weather[];
   cityId: number | undefined;
-  errorMessage: string;
-  isLoading: boolean;
 }
 
 export interface State {
   cities: StateCities;
-  current: StateCurrent;
+  weatherList: StateWeatherList;
 }
+
+export interface PayloadCityId {
+  cityId: number;
+}
+export type PayloadCities = City[];
+
+export type PayloadError = { cityId: number; error: string };
+
+// TO DO
+// export type AllPayloads =
+//   | PayloadCityId
+//   | PayloadCities
+//   | PayloadError
+//   | WeatherInner
+//   | undefined;
+// export type CheckTypeFunction = (obj: AllPayloads) => boolean;
+
+// export const isPayloadCityId: CheckTypeFunction = (payload: AllPayloads) => {
+//   let res = false;
+//   if (payload !== undefined && 'cityId' in payload && !('error' in payload)) {
+//     res = true;
+//   }
+
+//   return res;
+// };
+
+// export const isPayloadError: CheckTypeFunction = (payload: AllPayloads) => {
+//   let res = false;
+//   if (payload !== undefined && 'cityId' in payload && 'error' in payload) {
+//     res = true;
+//   }
+
+//   return res;
+// };

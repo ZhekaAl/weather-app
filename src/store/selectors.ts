@@ -1,8 +1,8 @@
 import { State, City } from './types';
 
 export function getCity(state: State): City {
-  if (state.current.cityId === undefined) return undefined;
-  const id: number | undefined = state.current.cityId;
+  if (state.weatherList.cityId === undefined) return undefined;
+  const id: number | undefined = state.weatherList.cityId;
   const { citiesRu, errorMessage, isLoading } = state.cities;
   if (!id || errorMessage || isLoading) return undefined;
 

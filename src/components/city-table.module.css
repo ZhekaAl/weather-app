@@ -1,0 +1,71 @@
+.table {
+  margin: 1rem;
+  max-width: 520px;
+  font-size: 0.7rem;
+}
+
+@media (min-width: 480px) {
+  .table {
+    font-size: 1rem;
+    margin: 2rem;
+  }
+}
+
+.cityLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 2em;
+  line-height: 1.4;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border-bottom: 1px solid #888;
+}
+.cityLine:first-child {
+  border-top: 1px solid #888;
+}
+
+.cityLine:hover {
+  background: aliceblue;
+}
+.name {
+  margin: 0 1em 0 0;
+  width: 35%;
+  max-width: 190px;
+}
+
+.temp {
+  margin: 0 1em 0 0;
+  width: 3em;
+}
+
+.image {
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.image img {
+  width: 100%;
+}
+
+.imageRefresh {
+  min-width: 1em;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  margin: 0 1em 0 0;
+  border-radius: 50%;
+}
+.imageRefresh:hover {
+  background: #437b7b6b;
+}
+.imageRefresh img {
+  width: 100%;
+}
+
+.date {
+  font-size: 0.75em;
+  max-width: 8em;
+  /* margin: 0 2em; */
+}

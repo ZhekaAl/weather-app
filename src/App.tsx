@@ -1,16 +1,18 @@
 import React from 'react';
-import CityChoice from './city-choice';
-import CityWeather from './city-weather';
+import CityChoice from './components/city-choice';
+import CityWeather from './components/city-weather';
+import { CitiesTable } from './components/city-table';
 // import logo from "./logo.svg";
 // import "./App.css";
 
 import 'leda/dist/styles/leda.light.css';
 
-function App() {
+function App(): React.ReactElement {
   return (
     <div className="App">
-      <CityChoice />
       <CityWeather />
+      <CitiesTable />
+      <CityChoice />
     </div>
   );
 }

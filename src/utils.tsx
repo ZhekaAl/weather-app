@@ -4,3 +4,18 @@ export function getTime(timeInSecond: number): string {
     minute: '2-digit',
   });
 }
+
+export function getDate(timeInSecond: number): string {
+  const dateString = new Date(timeInSecond * 1000).toLocaleString('ru-RU', {});
+  return dateString;
+}
+
+export function getPressure(pressureInKpa: number): string {
+  const pressure = `${Math.round(pressureInKpa * 0.750064)} мм.рт.ст`;
+  return pressure;
+}
+
+export function getIcon(name: string): string {
+  const url = `http://openweathermap.org/img/wn/${name}@2x.png`;
+  return url;
+}
