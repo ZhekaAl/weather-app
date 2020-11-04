@@ -44,7 +44,7 @@ export function* fetchWeather(action: {
   const data = yield call(
     (id: number) =>
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?id=${id}&lang=ru&appid=c43f3e82c4f5066edcb6b2e2a4e6dbd3&units=metric`,
+        `https://api.openweathermap.org/data/2.5/weather?id=${id}&lang=ru&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
       ).then((response) => response.json()),
     action.payload.cityId,
     // .then((myJson) => myJson)
