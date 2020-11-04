@@ -16,6 +16,6 @@ export function getPressure(pressureInKpa: number): string {
 }
 
 export function getIcon(name: string): string {
-  const url = `http://openweathermap.org/img/wn/${name}@2x.png`;
+  const url = `https://openweathermap.org/img/wn/${name}@2x.png`;
   return url;
 }
