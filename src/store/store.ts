@@ -2,7 +2,8 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { sagas } from './actions';
 import { citiesReducer, weatherListReducer } from './reducers';
 import createSagaMiddleware from 'redux-saga';
-import { loadState, saveState } from './localStorage';
+import { loadState, saveState } from './local-storage';
+import { State } from './types';
 
 const VERSION = '1.1.0';
 // const composeEnhancers =
@@ -27,7 +28,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
-const persistedState = loadState(VERSION);
+const persistedState: State | undefined = loadState(VERSION);
 
 const createStoreWithLocalStorage = () => {
   const store = createStore(

@@ -150,28 +150,60 @@ export type PayloadCities = City[];
 export type PayloadError = { cityId: number; error: string };
 
 // TO DO
-// export type AllPayloads =
-//   | PayloadCityId
-//   | PayloadCities
-//   | PayloadError
-//   | WeatherInner
-//   | undefined;
+export type AllPayloads =
+  | PayloadCityId
+  | PayloadCities
+  | PayloadError
+  | WeatherInner
+  | undefined;
 // export type CheckTypeFunction = (obj: AllPayloads) => boolean;
 
-// export const isPayloadCityId: CheckTypeFunction = (payload: AllPayloads) => {
-//   let res = false;
-//   if (payload !== undefined && 'cityId' in payload && !('error' in payload)) {
-//     res = true;
-//   }
+export const isPayloadCityId = (
+  payload: AllPayloads,
+): payload is PayloadCityId => {
+  let res = false;
+  if (payload !== undefined && 'cityId' in payload && !('error' in payload)) {
+    res = true;
+  }
 
-//   return res;
-// };
+  return res;
+};
 
-// export const isPayloadError: CheckTypeFunction = (payload: AllPayloads) => {
-//   let res = false;
-//   if (payload !== undefined && 'cityId' in payload && 'error' in payload) {
-//     res = true;
-//   }
+export const isPayloadError = (
+  payload: AllPayloads,
+): payload is PayloadError => {
+  let res = false;
+  if (payload !== undefined && 'cityId' in payload && 'error' in payload) {
+    res = true;
+  }
 
-//   return res;
-// };
+  return res;
+};
+
+export const isPayloadCities = (
+  payload: AllPayloads,
+): payload is PayloadCities => {
+  let res = false;
+  if (
+    payload !== undefined &&
+    Array.isArray(payload) &&
+    (payload.length === 0 ||
+      payload[0] === undefined ||
+      'rusName' in payload[0])
+  ) {
+    res = true;
+  }
+
+  return res;
+};
+
+export const isPayloadWeatherInner = (
+  payload: AllPayloads,
+): payload is WeatherInner => {
+  let res = false;
+  if (payload !== undefined && 'id' in payload && 'weather' in payload) {
+    res = true;
+  }
+
+  return res;
+};

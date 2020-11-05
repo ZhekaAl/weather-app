@@ -11,6 +11,10 @@ import {
   PayloadCityId,
   PayloadCities,
   PayloadError,
+  isPayloadCityId,
+  isPayloadError,
+  isPayloadCities,
+  isPayloadWeatherInner,
 } from './types';
 
 const initialStateCities: StateCities = {
@@ -32,7 +36,10 @@ export function citiesReducer(
       };
     case ACTION_TYPES.FETCH_CITIES_SUCCESS:
       if (payload === undefined) return state;
-      if ('cityId' in payload) return state;
+      // if ('cityId' in payload) return state;
+      // if (isPayloadCityId(payload)) return state;
+      //if (isPayloadError(payload)) return state;
+      if (!isPayloadCities(payload)) return state;
       return {
         ...state,
         citiesRu: payload,
@@ -64,10 +71,11 @@ export function weatherListReducer(
   switch (type) {
     case ACTION_TYPES.FETCH_WEATHER_CITY_START: {
       let newCity = true;
-      if (payload === undefined) {
-        return state;
-      }
-      if (!('cityId' in payload)) return state;
+      // if (payload === undefined) {
+      //   return state;
+      // }
+      // if (!('cityId' in payload)) return state;
+      if (!isPayloadCityId(payload)) return state;
       const newEl: Weather = {
         loadingState: getIsLoadingState(),
         weatherInfo: undefined,
@@ -92,10 +100,12 @@ export function weatherListReducer(
     }
 
     case ACTION_TYPES.FETCH_WEATHER_CITY_SUCCESS: {
-      if (payload === undefined) {
-        return state;
-      }
-      if (!('id' in payload)) return state;
+      // if (payload === undefined) {
+      //   return state;
+      // }
+      // if (!('id' in payload)) return state;
+
+      if (!isPayloadWeatherInner(payload)) return state;
 
       const newEl = {
         loadingState: getSuccesLoadedState(),
@@ -114,10 +124,11 @@ export function weatherListReducer(
       };
     }
     case ACTION_TYPES.FETCH_WEATHER_CITY_ERROR: {
-      if (payload === undefined) {
-        return state;
-      }
-      if (!('error' in payload)) return state;
+      // if (payload === undefined) {
+      //   return state;
+      // }
+      // if (!('error' in payload)) return state;
+      if (!isPayloadError(payload)) return state;
       const newEl = {
         loadingState: getErrorLoadedState(payload.error), //TO DO
 
@@ -137,8 +148,9 @@ export function weatherListReducer(
     }
 
     case ACTION_TYPES.SET_CURRENT_CITY: {
-      if (payload === undefined) return state;
-      if (!('cityId' in payload)) return state;
+      // if (payload === undefined) return state;
+      // if (!('cityId' in payload)) return state;
+      if (!isPayloadCityId(payload)) return state;
       return {
         ...state,
         cityId: payload.cityId,
@@ -146,8 +158,9 @@ export function weatherListReducer(
     }
 
     case ACTION_TYPES.REMOVE_CITY: {
-      if (payload === undefined) return state;
-      if (!('cityId' in payload)) return state;
+      // if (payload === undefined) return state;
+      // if (!('cityId' in payload)) return state;
+      if (!isPayloadCityId(payload)) return state;
 
       const newWeatherList = state.weatherList.filter(
         (el) => el.id !== payload.cityId,

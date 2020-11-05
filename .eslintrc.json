@@ -16,5 +16,8 @@
       "version": "detect"
     }
   },
+  "env": {
+    "browser": true
+  },
   "parser": "@typescript-eslint/parser"
 }

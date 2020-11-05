@@ -1,5 +1,5 @@
 //export const fetchCities
-import { ACTION_TYPES } from './types';
+import { ACTION_TYPES, PayloadCityId } from './types';
 import { takeEvery, all, call, put } from 'redux-saga/effects';
 
 // export const valuesActions = {
@@ -28,18 +28,21 @@ import { takeEvery, all, call, put } from 'redux-saga/effects';
 //   [FIELD: string]: any;
 // }
 
-export function* fetchCities() {
+const fetchCitiesFunc = () =>
+  fetch('./cities-ru.json').then((response) => response.json());
+
+export function* fetchCities(): Generator<unknown, void, unknown> {
   const data = yield call(
-    () => fetch('./cities-ru.json').then((response) => response.json()),
-    // .then((myJson) => myJson)
+    //() => fetch('./cities-ru.json').then((response) => response.json()),
+    fetchCitiesFunc,
   );
   yield put({ type: ACTION_TYPES.FETCH_CITIES_SUCCESS, payload: data });
 }
 
 export function* fetchWeather(action: {
   type: ACTION_TYPES.FETCH_WEATHER_CITY_START;
-  payload: { cityId: number };
-}) {
+  payload: PayloadCityId;
+}): Generator<unknown, void, unknown> {
   console.log({ action });
   const data = yield call(
     (id: number) =>
@@ -52,7 +55,7 @@ export function* fetchWeather(action: {
   yield put({ type: ACTION_TYPES.FETCH_WEATHER_CITY_SUCCESS, payload: data });
 }
 
-export function* sagas() {
+export function* sagas(): Generator<unknown, void, unknown> {
   yield all([takeEvery(ACTION_TYPES.FETCH_CITIES_START, fetchCities)]);
   yield all([takeEvery(ACTION_TYPES.FETCH_WEATHER_CITY_START, fetchWeather)]);
 }
