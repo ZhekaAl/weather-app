@@ -17,7 +17,7 @@ import {
   isPayloadWeatherInner,
 } from './types';
 
-const initialStateCities: StateCities = {
+export const initialStateCities: StateCities = {
   citiesRu: [],
   isLoading: false,
   errorMessage: '',
@@ -36,9 +36,6 @@ export function citiesReducer(
       };
     case ACTION_TYPES.FETCH_CITIES_SUCCESS:
       if (payload === undefined) return state;
-      // if ('cityId' in payload) return state;
-      // if (isPayloadCityId(payload)) return state;
-      //if (isPayloadError(payload)) return state;
       if (!isPayloadCities(payload)) return state;
       return {
         ...state,
