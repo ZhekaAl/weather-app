@@ -9,7 +9,7 @@ export function getCity(state: State): City {
   const city = citiesRu.find((city) => {
     if (city === undefined) return false;
     const { id: elId } = city;
-    console.log(elId);
+    // console.log(elId);
     // if (elId === 34) return true;
     if (id === elId) return true;
     return false;

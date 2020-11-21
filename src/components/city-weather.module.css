@@ -21,6 +21,9 @@
 .description {
   margin: 1rem;
   font-size: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 /* .left { */
@@ -51,4 +54,27 @@
   font-size: 1.5rem;
   margin: 1rem;
   width: fit-content;
+}
+
+.row {
+  display: flex;
+  flex-grow: 1;
+  margin: 0.5em;
+}
+
+.rowInfo {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0.5em;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.iconInfo {
+  max-width: 2em;
+  height: 1.5em;
+  margin: 1px;
+}
+.textInfo {
 }

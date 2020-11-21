@@ -7,6 +7,15 @@ import { getCity } from '../store/selectors';
 
 import { getTime, getDate, getPressure, getIcon } from '../utils';
 
+import { ReactComponent as Sunrise } from '../icons/sunrise.svg';
+import { ReactComponent as Sunset } from '../icons/sunset.svg';
+import { ReactComponent as Windsock } from '../icons/windsock.svg';
+import { ReactComponent as Humidity } from '../icons/humidity.svg';
+import { ReactComponent as Pressure } from '../icons/pressure.svg';
+import { ReactComponent as FeelsLike } from '../icons/temperature-feels-like.svg';
+import { ReactComponent as TempMax } from '../icons/thermometer-max.svg';
+import { ReactComponent as TempMin } from '../icons/thermometer-min.svg';
+
 export default function CityWeather(): React.ReactElement | null {
   const city: City = useSelector((state: State) => getCity(state));
   const weather: Weather | undefined = useSelector((state: State) =>
@@ -45,40 +54,77 @@ export default function CityWeather(): React.ReactElement | null {
 
       <div className={styles.weatherInfo}>
         <div className={styles.left}>
-          <div className={styles.temp}>
-            {/* {weather &&
+          <div className={styles.row}>
+            <div className={styles.temp}>
+              {/* {weather &&
               `сейчас: ${weather.main.temp}°
               ощущается: ${weather.main.feels_like}°
             днем: ${weather.main.temp_max}
            давление: ${weather.main.pressure}
            влажность: ${weather.main.humidity}%`} */}
 
-            {`${Math.round(weather.weatherInfo.main.temp)}°`}
+              {`${Math.round(weather.weatherInfo.main.temp)}°`}
+            </div>
+            <div className={styles.image}>
+              <img
+                // src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                src={iconUrl}
+                alt={description}
+              />
+            </div>
           </div>
           <div className={styles.description}>
-            {weather.weatherInfo.weather[0].description}
-            <br />
-            ощущается как: {Math.round(weather.weatherInfo.main.feels_like)}°
-            <br />
-            {weather.weatherInfo.main.humidity}%,{' '}
-            {weather.weatherInfo.wind.speed}м/с, {pressureString}
-            <br />
-            восход: {sunrise}, закат: {sunset}
-          </div>
-        </div>
+            {/* {weather.weatherInfo.weather[0].description} */}
 
-        <div className={styles.right}>
-          <div className={styles.image}>
-            <img
-              // src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-              src={iconUrl}
-              alt={description}
-            />
-          </div>
-          <div className={styles.dayNight}>
-            {`день: ${Math.round(
-              weather.weatherInfo.main.temp_max,
-            )}°/ ночь: ${Math.round(weather.weatherInfo.main.temp_min)}°`}
+            <div className={styles.row}>
+              <div className={styles.rowInfo}>
+                <FeelsLike className={styles.iconInfo} />
+                <div className={styles.textInfo}>
+                  {Math.round(weather.weatherInfo.main.feels_like)}°
+                </div>
+              </div>
+              <div className={styles.rowInfo}>
+                <TempMax className={styles.iconInfo} />
+                <div className={styles.textInfo}>
+                  {Math.round(weather.weatherInfo.main.temp_max)}°
+                </div>
+              </div>
+              <div className={styles.rowInfo}>
+                <TempMin className={styles.iconInfo} />
+                <div className={styles.textInfo}>
+                  {Math.round(weather.weatherInfo.main.temp_min)}°
+                </div>
+              </div>
+            </div>
+            <div className={styles.row}>
+              <div className={styles.rowInfo}>
+                <Humidity className={styles.iconInfo} />
+                <div className={styles.textInfo}>
+                  {weather.weatherInfo.main.humidity}%,{' '}
+                </div>
+              </div>
+              <div className={styles.rowInfo}>
+                <Windsock className={styles.iconInfo} />
+                <div className={styles.textInfo}>
+                  {weather.weatherInfo.wind.speed}м/с
+                </div>
+              </div>
+              <div className={styles.rowInfo}>
+                <Pressure className={styles.iconInfo} />
+                <div className={styles.textInfo}>{pressureString}</div>
+              </div>
+            </div>
+
+            <div className={styles.row}>
+              <div className={styles.rowInfo}>
+                <Sunrise className={styles.iconInfo} />
+                <div className={styles.textInfo}>{sunrise}</div>
+              </div>
+              <div className={styles.rowInfo}>
+                <Sunset className={styles.iconInfo} />
+                <div className={styles.textInfo}>{sunset}</div>
+              </div>
+            </div>
           </div>
           <div className={styles.timeInfo}>{dateString}</div>
         </div>

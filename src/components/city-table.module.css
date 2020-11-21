@@ -49,17 +49,24 @@
   width: 100%;
 }
 
+.imageRemove,
 .imageRefresh {
-  min-width: 1em;
+  min-width: 2em;
   display: flex;
   align-items: center;
   transition: all 0.3s ease-in-out;
   margin: 0 1em 0 0;
   border-radius: 50%;
 }
+.imageRemove {
+  min-width: 1em;
+}
+
+.imageRemove:hover,
 .imageRefresh:hover {
   background: #437b7b6b;
 }
+.imageRemove img,
 .imageRefresh img {
   width: 100%;
 }

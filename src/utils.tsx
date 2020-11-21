@@ -11,7 +11,7 @@ export function getDate(timeInSecond: number): string {
 }
 
 export function getPressure(pressureInKpa: number): string {
-  const pressure = `${Math.round(pressureInKpa * 0.750064)} мм.рт.ст`;
+  const pressure = `${Math.round(pressureInKpa * 0.750064)} мм.`;
   return pressure;
 }
 

@@ -58,7 +58,7 @@ const CityLine = ({
       <div className={styles.imageRefresh} onClick={handleRefreshClick}>
         <img src={refreshIcon} alt={description} />
       </div>
-      <div className={styles.imageRefresh} onClick={handleRemoveClick}>
+      <div className={styles.imageRemove} onClick={handleRemoveClick}>
         <img src={removeIcon} alt={description} />
       </div>
     </div>
