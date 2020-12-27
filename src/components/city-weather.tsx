@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from './city-weather.module.css';
-import { State, City, Weather } from '../store/types';
-
-import { getCity } from '../store/selectors';
 
 import { getTime, getDate, getPressure, getIcon } from '../utils';
+import { getCity } from '../store/selectors';
+import { State, City, Weather } from '../store/types';
+
+import styles from './city-weather.module.css';
+import { HourlyForecast } from './hourly-forecast';
 
 import { ReactComponent as Sunrise } from '../icons/sunrise.svg';
 import { ReactComponent as Sunset } from '../icons/sunset.svg';
@@ -102,6 +103,8 @@ export default function CityWeather(): React.ReactElement | null {
           <div className={styles.timeInfo}>{dateString}</div>
         </div>
       </div>
+
+      <HourlyForecast hourlyForecast={weather?.forecast?.hourly || []} />
     </div>
   );
 }

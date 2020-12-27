@@ -9,6 +9,7 @@ import {
   WeatherInner,
   PayloadCityId,
   PayloadError,
+  PayloadForecast,
 } from '../types';
 
 const initialState: StateWeatherList = {
@@ -92,6 +93,22 @@ const fetchWeatherCityError: WeatherReducer<PayloadError> = (
   };
 };
 
+const fetchForecastCitySuccess: WeatherReducer<PayloadForecast> = (
+  state,
+  { payload },
+) => ({
+  ...state,
+  weatherList: state.weatherList.map((el) => {
+    if (el.id === payload.cityId) {
+      return {
+        ...el,
+        forecast: payload.forecast,
+      };
+    }
+    return el;
+  }),
+});
+
 const setCurrentCity: WeatherReducer<PayloadCityId> = (state, { payload }) => ({
   ...state,
   cityId: payload.cityId,
@@ -121,6 +138,7 @@ const citiesSlice = createSlice({
     fetchWeatherCityError,
     setCurrentCity,
     removeCity,
+    fetchForecastCitySuccess,
   },
 });
 

@@ -19,3 +19,7 @@ export function getIcon(name: string): string {
   const url = `https://openweathermap.org/img/wn/${name}@2x.png`;
   return url;
 }
+
+export function getTempString(temp: number): string {
+  return `${Math.round(temp)}°`;
+}

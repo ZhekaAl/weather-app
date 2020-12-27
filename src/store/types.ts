@@ -57,17 +57,21 @@ export interface CityInner {
 }
 export type City = CityInner | undefined;
 
+export interface Coord {
+  lon: number;
+  lat: number;
+}
+
+export interface WeatherDescription {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
 export interface WeatherInner {
-  coord: {
-    lon: number;
-    lat: number;
-  };
-  weather: Array<{
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }>;
+  coord: Coord;
+  weather: WeatherDescription[];
 
   base: string;
   main: {
@@ -106,9 +110,73 @@ export interface WeatherInner {
   cod: number;
 }
 
+export interface Hourly {
+  dt: number;
+  temp: number;
+  feels_like: number;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  uvi: number;
+  clouds: number;
+  visibility: number;
+  wind_speed: number;
+  wind_deg: number;
+  weather: WeatherDescription[];
+  pop: number;
+}
+
+export interface Daily {
+  dt: number;
+  sunrise: number;
+  sunset: 1609073914;
+  temp: {
+    day: number;
+    min: number;
+    max: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  feels_like: {
+    day: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  wind_speed: number;
+  wind_deg: number;
+  weather: Weather[];
+  clouds: number;
+  pop: number;
+  uvi: number;
+}
+
+export interface Alert {
+  sender_name: string;
+  event: string;
+  start: number;
+  end: number;
+  description: string;
+}
+
+export interface Forecast {
+  lat: number;
+  lon: number;
+  timezone: string;
+  timezone_offset: number;
+  hourly: Hourly[];
+  daily: Daily[];
+  alerts: Alert[];
+}
+
 export interface Weather {
   loadingState: LoadingState;
-  weatherInfo: WeatherInner | undefined;
+  weatherInfo?: WeatherInner;
+  forecast?: Forecast;
   id: number;
 }
 
@@ -120,7 +188,7 @@ export interface StateCities {
 
 export interface StateWeatherList {
   weatherList: Weather[];
-  cityId: number | undefined;
+  cityId?: number;
 }
 
 export interface State {
@@ -134,6 +202,11 @@ export interface PayloadCityId {
 export type PayloadCities = City[];
 
 export type PayloadError = { cityId: number; error: string };
+
+export interface PayloadForecast {
+  cityId: number;
+  forecast: Forecast;
+}
 
 // TO DO
 export type AllPayloads =
