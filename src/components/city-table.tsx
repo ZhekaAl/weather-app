@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './city-table.module.css';
-import { ACTION_TYPES, State, Weather } from '../store/types';
+import { State, Weather } from '../store/types';
+import { actions as weatherActions } from '../store/weather/ducks';
 
 import { getDate, getIcon } from '../utils';
 
@@ -21,27 +22,22 @@ const CityLine = ({
   const dateString = getDate(weather.weatherInfo.dt);
 
   const handleClick = () => {
-    dispatch({
-      type: ACTION_TYPES.SET_CURRENT_CITY,
-      payload: { cityId: weather.id },
-    });
+    dispatch(weatherActions.setCurrentCity({ cityId: weather.id }));
   };
 
   const handleRefreshClick = (event: React.SyntheticEvent) => {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
-    dispatch({
-      type: ACTION_TYPES.FETCH_WEATHER_CITY_START,
-      payload: { cityId: weather.id },
-    });
+    // dispatch({
+    //   type: ACTION_TYPES.FETCH_WEATHER_CITY_START,
+    //   payload: { cityId: weather.id },
+    // });
+    dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
   };
   const handleRemoveClick = (event: React.SyntheticEvent) => {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
-    dispatch({
-      type: ACTION_TYPES.REMOVE_CITY,
-      payload: { cityId: weather.id },
-    });
+    dispatch(weatherActions.removeCity({ cityId: weather.id }));
   };
 
   return (

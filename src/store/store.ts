@@ -1,7 +1,10 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import { sagas } from './actions';
-import { citiesReducer, weatherListReducer } from './reducers';
 import createSagaMiddleware from 'redux-saga';
+
+import { sagas } from './process';
+
+import { citiesReducer } from './cities/ducks';
+import { weatherReducer } from './weather/ducks';
 import { loadState, saveState } from './local-storage';
 import { State } from './types';
 
@@ -34,7 +37,7 @@ const createStoreWithLocalStorage = () => {
   const store = createStore(
     combineReducers({
       cities: citiesReducer,
-      weatherList: weatherListReducer,
+      weatherList: weatherReducer,
     }),
     persistedState,
     composeEnhancers
