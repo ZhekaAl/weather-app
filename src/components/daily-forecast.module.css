@@ -1,0 +1,67 @@
+.dailyForecast {
+  display: block;
+  overflow: scroll;
+  margin: 0.5rem;
+}
+
+.day {
+  min-width: 30px;
+}
+
+.dailyElem {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.time {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.textInfo {
+  width: 11%;
+  margin: 5px;
+  min-width: 30px;
+}
+
+.tempInfo {
+  width: 12%;
+  margin: 5px;
+  min-width: 40px;
+}
+
+.image {
+  width: 50px;
+  min-width: 30px;
+}
+.image img {
+  width: 100%;
+}
+
+.tempDay {
+  width: 14%;
+  margin: 5px;
+}
+
+.tempdaily {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.iconInfo {
+  width: 12%;
+  margin: 5px;
+  height: 1.5em;
+  min-width: 30px;
+}
+
+.space {
+  width: calc(80px + 12%);
+  min-width: 110px;
+}
+
+.header {
+  display: flex;
+  margin: 1rem;
+}

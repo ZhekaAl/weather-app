@@ -129,7 +129,7 @@ export interface Hourly {
 export interface Daily {
   dt: number;
   sunrise: number;
-  sunset: 1609073914;
+  sunset: number;
   temp: {
     day: number;
     min: number;
@@ -149,7 +149,7 @@ export interface Daily {
   dew_point: number;
   wind_speed: number;
   wind_deg: number;
-  weather: Weather[];
+  weather: WeatherDescription[];
   clouds: number;
   pop: number;
   uvi: number;

@@ -7,6 +7,7 @@ import { State, City, Weather } from '../store/types';
 
 import styles from './city-weather.module.css';
 import { HourlyForecast } from './hourly-forecast';
+import { DailyForecast } from './daily-forecast';
 
 import { ReactComponent as Sunrise } from '../icons/sunrise.svg';
 import { ReactComponent as Sunset } from '../icons/sunset.svg';
@@ -80,7 +81,7 @@ export default function CityWeather(): React.ReactElement | null {
               <div className={styles.rowInfo}>
                 <Windsock className={styles.iconInfo} />
                 <div className={styles.textInfo}>
-                  {weather.weatherInfo.wind.speed}м/с
+                  {Math.round(weather.weatherInfo.wind.speed)}м/с
                 </div>
               </div>
               <div className={styles.rowInfo}>
@@ -100,11 +101,12 @@ export default function CityWeather(): React.ReactElement | null {
               </div>
             </div>
           </div>
-          <div className={styles.timeInfo}>{dateString}</div>
+          <div className={styles.timeInfo}>Обновлено: {dateString}</div>
         </div>
       </div>
 
       <HourlyForecast hourlyForecast={weather?.forecast?.hourly || []} />
+      <DailyForecast dailyForecast={weather?.forecast?.daily || []} />
     </div>
   );
 }
