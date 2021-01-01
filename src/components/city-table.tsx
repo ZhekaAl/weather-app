@@ -11,8 +11,10 @@ import removeIcon from '../icons/remove.svg';
 
 const CityLine = ({
   weather,
+  closeDrawer,
 }: {
   weather: Weather;
+  closeDrawer: () => void;
 }): React.ReactElement | null => {
   const dispatch = useDispatch();
   if (weather === undefined || weather.weatherInfo === undefined) return null;
@@ -23,15 +25,12 @@ const CityLine = ({
 
   const handleClick = () => {
     dispatch(weatherActions.setCurrentCity({ cityId: weather.id }));
+    closeDrawer();
   };
 
   const handleRefreshClick = (event: React.SyntheticEvent) => {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
-    // dispatch({
-    //   type: ACTION_TYPES.FETCH_WEATHER_CITY_START,
-    //   payload: { cityId: weather.id },
-    // });
     dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
   };
   const handleRemoveClick = (event: React.SyntheticEvent) => {
@@ -61,15 +60,18 @@ const CityLine = ({
   );
 };
 
-export const CitiesTable = (): React.ReactElement | null => {
+export const CitiesTable = ({
+  closeDrawer,
+}: {
+  closeDrawer: () => void;
+}): React.ReactElement => {
   const weatherList: Weather[] = useSelector(
     (state: State) => state.weatherList.weatherList,
   );
-  if (weatherList === undefined) return null;
   return (
     <div className={styles.table}>
       {weatherList.map((el) => (
-        <CityLine key={el.id} weather={el} />
+        <CityLine key={el.id} weather={el} closeDrawer={closeDrawer} />
       ))}
     </div>
   );
