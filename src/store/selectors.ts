@@ -1,4 +1,4 @@
-import { State, City } from './types';
+import { State, City, Weather } from './types';
 
 export function getCity(state: State): City {
   if (state.weatherList.cityId === undefined) return undefined;
@@ -9,8 +9,6 @@ export function getCity(state: State): City {
   const city = citiesRu.find((city) => {
     if (city === undefined) return false;
     const { id: elId } = city;
-    // console.log(elId);
-    // if (elId === 34) return true;
     if (id === elId) return true;
     return false;
   });
@@ -19,4 +17,8 @@ export function getCity(state: State): City {
   return city;
 }
 
-//export function getWeather(state: State)
+export function getWeather(state: State): Weather | undefined {
+  if (state.weatherList.cityId === undefined) return undefined;
+  const id: number = state.weatherList.cityId;
+  return state.weatherList.weatherList.find((el) => el.id === id);
+}

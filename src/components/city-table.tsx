@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './city-table.module.css';
 import { State, Weather } from '../store/types';
@@ -17,6 +17,20 @@ const CityLine = ({
   closeDrawer: () => void;
 }): React.ReactElement | null => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (
+      weather === undefined ||
+      weather.weatherInfo === undefined ||
+      !weather.loadingState.isLoaded
+    )
+      return;
+    const nowDateSec = new Date().getTime() / 1000;
+    if (nowDateSec - weather.weatherInfo?.dt > 60 * 30) {
+      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
+    }
+  }, [weather, dispatch]);
+
   if (weather === undefined || weather.weatherInfo === undefined) return null;
 
   const { icon, description } = weather.weatherInfo.weather[0];
@@ -50,9 +64,6 @@ const CityLine = ({
         <img src={iconUrl} alt={description} />
       </div>
       <div className={styles.date}>{dateString}</div>
-      <div className={styles.imageRefresh} onClick={handleRefreshClick}>
-        <img src={refreshIcon} alt={description} />
-      </div>
       <div className={styles.imageRemove} onClick={handleRemoveClick}>
         <img src={removeIcon} alt={description} />
       </div>

@@ -1,9 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { getTime, getDate, getPressure, getIcon } from '../utils';
-import { getCity } from '../store/selectors';
-import { State, City, Weather } from '../store/types';
+import { getCity, getWeather } from '../store/selectors';
+import { City, Weather } from '../store/types';
+import { actions as weatherActions } from '../store/weather/ducks';
 
 import styles from './city-weather.module.css';
 import { HourlyForecast } from './hourly-forecast';
@@ -19,10 +20,30 @@ import { ReactComponent as TempMax } from '../icons/thermometer-max.svg';
 import { ReactComponent as TempMin } from '../icons/thermometer-min.svg';
 
 export default function CityWeather(): React.ReactElement | null {
-  const city: City = useSelector((state: State) => getCity(state));
-  const weather: Weather | undefined = useSelector((state: State) =>
-    state.weatherList.weatherList.find((el) => el.id === city?.id),
-  );
+  const city: City = useSelector(getCity);
+  const weather: Weather | undefined = useSelector(getWeather);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (
+      weather === undefined ||
+      weather.weatherInfo === undefined ||
+      !weather.loadingState.isLoaded
+    )
+      return;
+    const nowDateSec = new Date().getTime() / 1000;
+    if (nowDateSec - weather.weatherInfo?.dt > 60 * 15) {
+      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
+      console.log(
+        'getWeather',
+        weather.weatherInfo.id,
+        nowDateSec,
+        weather.weatherInfo?.dt * 1000,
+      );
+      console.count('getWeather');
+    }
+  }, [weather, dispatch]);
 
   if (weather === undefined || weather.weatherInfo === undefined) return null;
 

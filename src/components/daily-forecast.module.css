@@ -28,7 +28,7 @@
 .tempInfo {
   width: 12%;
   margin: 5px;
-  min-width: 40px;
+  min-width: 60px;
 }
 
 .image {
@@ -57,8 +57,8 @@
 }
 
 .space {
-  width: calc(80px + 12%);
-  min-width: 110px;
+  width: calc(100px + 12%);
+  min-width: 130px;
 }
 
 .header {

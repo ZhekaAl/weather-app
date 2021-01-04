@@ -28,7 +28,7 @@ export function HourlyForecast({
   return (
     <div className={styles.hourlyForecast}>
       {hourlyForecast.map((el, i) => {
-        if (i > 0 && i % 2 === 0)
+        if (i > 0 && i % 3 === 0)
           return <HourlyBlock key={el.dt} hourly={el} />;
         else return null;
       })}

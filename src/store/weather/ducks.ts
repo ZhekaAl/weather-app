@@ -37,7 +37,10 @@ const fetchWeatherCityStart: WeatherReducer<PayloadCityId> = (
     weatherList: state.weatherList.map((el) => {
       if (el.id === payload.cityId) {
         newCity = false;
-        return newEl;
+        return {
+          ...el,
+          loadingState: getIsLoadingState(),
+        };
       }
       return el;
     }),
@@ -75,18 +78,14 @@ const fetchWeatherCityError: WeatherReducer<PayloadError> = (
   state,
   { payload },
 ) => {
-  const newEl = {
-    loadingState: getErrorLoadedState(payload.error), //TO DO
-
-    weatherInfo: undefined,
-    id: payload.cityId,
-  };
-
   return {
     ...state,
     weatherList: state.weatherList.map((el) => {
       if (el.id === payload.cityId) {
-        return newEl;
+        return {
+          ...el,
+          loadingState: getErrorLoadedState(payload.error),
+        };
       }
       return el;
     }),
