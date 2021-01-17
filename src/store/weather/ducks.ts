@@ -26,7 +26,6 @@ const fetchWeatherCityStart: WeatherReducer<PayloadCityId> = (
 ) => {
   let newCity = true;
 
-  // if (!isPayloadCityId(payload)) return state;
   const newEl: Weather = {
     loadingState: getIsLoadingState(),
     weatherInfo: undefined,
@@ -57,17 +56,15 @@ const fetchWeatherCitySuccess: WeatherReducer<WeatherInner> = (
   state,
   { payload },
 ) => {
-  const newEl = {
-    loadingState: getSuccesLoadedState(),
-    weatherInfo: payload,
-    id: payload.id,
-  };
-
   return {
     ...state,
     weatherList: state.weatherList.map((el) => {
       if (el.id === payload.id) {
-        return newEl;
+        return {
+          ...el,
+          loadingState: getSuccesLoadedState(),
+          weatherInfo: payload,
+        };
       }
       return el;
     }),

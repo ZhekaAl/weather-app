@@ -43,7 +43,12 @@ export function getPressure(pressureInKpa: number, useMm = true): string {
 }
 
 export function getIcon(name: string): string {
-  const url = `https://openweathermap.org/img/wn/${name}@2x.png`;
+  let url;
+  if (name === '50d' || name === '50n') {
+    url = `https://openweathermap.org/img/wn/${name}@2x.png`;
+  } else {
+    url = `${process.env.PUBLIC_URL}/icons/${name}.svg`;
+  }
   return url;
 }
 
