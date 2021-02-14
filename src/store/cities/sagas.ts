@@ -2,7 +2,7 @@ import { SagaIterator } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
 import { PayloadCities } from '../types';
-import { http } from '../../http';
+import { http } from '../../utils/http';
 
 import { actions } from './ducks';
 

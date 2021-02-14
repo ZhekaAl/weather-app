@@ -9,11 +9,6 @@ import { loadState, saveState } from './local-storage';
 import { State } from './types';
 
 const VERSION = '1.1.0';
-// const composeEnhancers =
-//   (typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-//   null;
-
-//const composeEnhancers:any = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
 
 declare global {
   interface Window {
@@ -22,12 +17,6 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const composeEnhancers =
-//   typeof window === 'object' &&
-//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-//       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-//     }) : compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -51,17 +40,6 @@ const createStoreWithLocalStorage = () => {
 
   return store;
 };
-
-// export default createStore(
-//   combineReducers({
-//     cities: citiesReducer,
-//     current: currentReducer,
-//   }),
-//   persistedState,
-//   composeEnhancers
-//     ? composeEnhancers(applyMiddleware(sagaMiddleware))
-//     : applyMiddleware(sagaMiddleware),
-// );
 
 export default createStoreWithLocalStorage();
 

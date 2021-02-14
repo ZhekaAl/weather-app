@@ -9,11 +9,11 @@ import { ReactComponent as Pressure } from '../icons/pressure.svg';
 import {
   getTime,
   getTempString,
-  getIcon,
+  getSimpleIcon,
   getWeekDay,
   getPressure,
   getDayMonth,
-} from '../utils';
+} from '../utils/utils';
 
 const Header = (): React.ReactElement => (
   <div className={styles.header}>
@@ -28,7 +28,7 @@ const Header = (): React.ReactElement => (
 
 const DailyBlock = ({ daily }: { daily: Daily }): React.ReactElement => {
   const { icon, description } = daily.weather[0];
-  const iconUrl = getIcon(icon);
+  const iconUrl = getSimpleIcon(icon);
   const day = getWeekDay(daily.dt);
   const dayMonth = getDayMonth(daily.dt);
   const tempDay = getTempString(daily.temp.day);

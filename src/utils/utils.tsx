@@ -1,13 +1,3 @@
-const weekDaysEn = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
-
 const weekDays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
 export function getWeekDay(timeInSecond: number): string {
@@ -42,12 +32,20 @@ export function getPressure(pressureInKpa: number, useMm = true): string {
   return pressure;
 }
 
+export function getAnimatedIcon(name: string): string {
+  return `${process.env.PUBLIC_URL}/icons/${name}.svg`;
+}
+
+export function getSimpleIcon(name: string): string {
+  return `https://openweathermap.org/img/wn/${name}@2x.png`;
+}
+
 export function getIcon(name: string): string {
   let url;
   if (name === '50d' || name === '50n') {
-    url = `https://openweathermap.org/img/wn/${name}@2x.png`;
+    url = getSimpleIcon(name);
   } else {
-    url = `${process.env.PUBLIC_URL}/icons/${name}.svg`;
+    url = getAnimatedIcon(name);
   }
   return url;
 }

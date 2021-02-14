@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getTime, getDate, getPressure, getIcon } from '../utils';
+import { getTime, getDate, getPressure, getIcon } from '../utils/utils';
 import { getCity, getWeather } from '../store/selectors';
 import { City, Weather } from '../store/types';
 import { actions as weatherActions } from '../store/weather/ducks';
@@ -35,13 +35,6 @@ export default function CityWeather(): React.ReactElement | null {
     const nowDateSec = new Date().getTime() / 1000;
     if (nowDateSec - weather.weatherInfo?.dt > 60 * 15) {
       dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
-      console.log(
-        'getWeather',
-        weather.weatherInfo.id,
-        nowDateSec,
-        weather.weatherInfo?.dt * 1000,
-      );
-      console.count('getWeather');
     }
   }, [weather, dispatch]);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './hourly-forecast.module.css';
 import { Hourly } from '../store/types';
 
-import { getTime, getTempString, getIcon } from '../utils';
+import { getTime, getTempString, getIcon } from '../utils/utils';
 
 const HourlyBlock = ({ hourly }: { hourly: Hourly }): React.ReactElement => {
   const { icon, description } = hourly.weather[0];

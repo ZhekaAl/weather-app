@@ -4,9 +4,8 @@ import styles from './city-table.module.css';
 import { State, Weather } from '../store/types';
 import { actions as weatherActions } from '../store/weather/ducks';
 
-import { getDate, getIcon } from '../utils';
+import { getDate, getIcon } from '../utils/utils';
 
-import refreshIcon from '../icons/refresh.svg';
 import removeIcon from '../icons/remove.svg';
 
 const CityLine = ({
@@ -42,11 +41,6 @@ const CityLine = ({
     closeDrawer();
   };
 
-  const handleRefreshClick = (event: React.SyntheticEvent) => {
-    event.stopPropagation();
-    event.nativeEvent.stopImmediatePropagation();
-    dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
-  };
   const handleRemoveClick = (event: React.SyntheticEvent) => {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();

@@ -2,6 +2,7 @@
   display: block;
   overflow: scroll;
   margin: 0.5rem;
+  max-width: 500px;
 }
 
 .day {
@@ -50,14 +51,14 @@
 }
 
 .iconInfo {
-  width: 12%;
+  width: 11%;
   margin: 5px;
   height: 1.5em;
   min-width: 30px;
 }
 
 .space {
-  width: calc(100px + 12%);
+  width: calc(30px + 50px + 60px);
   min-width: 130px;
 }
 

@@ -2,7 +2,7 @@ import { SagaIterator } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
 import { PayloadCityId, WeatherInner, Coord, Forecast } from '../types';
-import { http } from '../../http';
+import { http } from '../../utils/http';
 
 import { actions } from './ducks';
 
@@ -22,7 +22,6 @@ export function* fetchWeather({
   payload: PayloadCityId;
 }): SagaIterator<void> {
   try {
-    //   console.log({ action });
     const data = yield call(fetchWeatherCityApi, payload.cityId);
     yield put(actions.fetchWeatherCitySuccess(data));
 
@@ -30,7 +29,6 @@ export function* fetchWeather({
 
     const forecast = yield call(fetchForecastCityApi, coord);
 
-    console.log('forecast', { forecast });
     yield put(
       actions.fetchForecastCitySuccess({
         cityId: payload.cityId,
