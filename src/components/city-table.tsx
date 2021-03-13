@@ -17,18 +17,11 @@ const CityLine = ({
 }): React.ReactElement | null => {
   const dispatch = useDispatch();
 
+  const nowDateSec = new Date().getTime() / 1000;
   useEffect(() => {
-    if (
-      weather === undefined ||
-      weather.weatherInfo === undefined ||
-      !weather.loadingState.isLoaded
-    )
-      return;
-    const nowDateSec = new Date().getTime() / 1000;
-    if (nowDateSec - weather.weatherInfo?.dt > 60 * 30) {
-      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
-    }
-  }, [weather, dispatch]);
+    if (weather?.id)
+      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather?.id }));
+  }, [weather?.id]);
 
   if (weather === undefined || weather.weatherInfo === undefined) return null;
 

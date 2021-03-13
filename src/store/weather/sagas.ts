@@ -6,15 +6,16 @@ import { http } from '../../utils/http';
 
 import { actions } from './ducks';
 
+const API = 'https://next-mongo-zhekaal.vercel.app/api';
+// const API_LOCAL = 'http://localhost:3000/api';
+// https://api.openweathermap.org/data/2.5/weather?id=${id}&lang=ru&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
+// https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,current&lang=ru&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
+
 const fetchWeatherCityApi = (id: number): Promise<WeatherInner> =>
-  http<WeatherInner>(
-    `https://api.openweathermap.org/data/2.5/weather?id=${id}&lang=ru&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
-  );
+  http<WeatherInner>(`${API}/weather-city?id=${id}`);
 
 const fetchForecastCityApi = (coord: Coord): Promise<Forecast> =>
-  http<Forecast>(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,current&lang=ru&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
-  );
+  http<Forecast>(`${API}/weather-forecast?lat=${coord.lat}&lon=${coord.lon}`);
 
 export function* fetchWeather({
   payload,

@@ -26,17 +26,10 @@ export default function CityWeather(): React.ReactElement | null {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (
-      weather === undefined ||
-      weather.weatherInfo === undefined ||
-      !weather.loadingState.isLoaded
-    )
-      return;
-    const nowDateSec = new Date().getTime() / 1000;
-    if (nowDateSec - weather.weatherInfo?.dt > 60 * 15) {
+    if (weather?.id) {
       dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
     }
-  }, [weather, dispatch]);
+  }, [weather?.id]);
 
   if (weather === undefined || weather.weatherInfo === undefined) return null;
 

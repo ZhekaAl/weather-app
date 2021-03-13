@@ -22,10 +22,6 @@ export default function CityChoice(): React.ReactElement {
   const onChange = (ev: L.AutoCompleteTypes.DataObject) => {
     if (ev.component.suggestion) {
       if (city.id !== ev.component.suggestion.id)
-        // dispatch({
-        //   type: ACTION_TYPES.FETCH_WEATHER_CITY_START,
-        //   payload: { cityId: ev.component.suggestion.id },
-        // });
         dispatch(
           weatherActions.fetchWeatherCityStart({
             cityId: ev.component.suggestion.id,
