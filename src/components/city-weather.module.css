@@ -77,5 +77,17 @@
   height: 1.5em;
   margin: 1px;
 }
+
+.refreshRow{
+  display: flex;
+  align-items: center;
+}
+
 .textInfo {
+}
+
+.loader{
+  max-width: 2em;
+  height: 1.5em;
+  margin: 1px;
 }

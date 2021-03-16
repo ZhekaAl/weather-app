@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './hourly-forecast.module.css';
 import { Hourly } from '../store/types';
 
-import { getTime, getTempString, getIcon } from '../utils/utils';
+import { getTime, getTempString, getSimpleIcon } from '../utils/utils';
 
 const HourlyBlock = ({ hourly }: { hourly: Hourly }): React.ReactElement => {
   const { icon, description } = hourly.weather[0];
-  const iconUrl = getIcon(icon);
+  const iconUrl = getSimpleIcon(icon);
   const time = getTime(hourly.dt);
   const tempString = getTempString(hourly.temp);
   return (

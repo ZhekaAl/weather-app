@@ -76,3 +76,12 @@
   max-width: 8em;
   /* margin: 0 2em; */
 }
+.loader{
+  max-width: 1.5em;
+    height: 1.5em;
+    margin: 0 5px 0 0;
+    visibility: hidden;
+}
+.loaderVisible{
+  visibility: visible;
+}

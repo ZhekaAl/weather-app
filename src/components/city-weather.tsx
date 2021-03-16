@@ -19,6 +19,8 @@ import { ReactComponent as FeelsLike } from '../icons/temperature-feels-like.svg
 import { ReactComponent as TempMax } from '../icons/thermometer-max.svg';
 import { ReactComponent as TempMin } from '../icons/thermometer-min.svg';
 
+import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
+
 export default function CityWeather(): React.ReactElement | null {
   const city: City = useSelector(getCity);
   const weather: Weather | undefined = useSelector(getWeather);
@@ -36,6 +38,8 @@ export default function CityWeather(): React.ReactElement | null {
   const { icon, description } = weather.weatherInfo.weather[0];
 
   const dateString = getDate(weather.weatherInfo.dt);
+
+  const isLoading = weather.loadingState.isLoading;
 
   const sunrise = getTime(weather.weatherInfo.sys.sunrise);
   const sunset = getTime(weather.weatherInfo.sys.sunset);
@@ -108,7 +112,10 @@ export default function CityWeather(): React.ReactElement | null {
               </div>
             </div>
           </div>
-          <div className={styles.timeInfo}>Обновлено: {dateString}</div>
+          <div className={styles.refreshRow}>
+            <div className={styles.timeInfo}>Обновлено: {dateString}</div>
+            {isLoading && <Loader className={styles.loader} />}
+          </div>
         </div>
       </div>
 

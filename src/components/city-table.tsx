@@ -7,6 +7,7 @@ import { actions as weatherActions } from '../store/weather/ducks';
 import { getDate, getIcon } from '../utils/utils';
 
 import removeIcon from '../icons/remove.svg';
+import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
 
 const CityLine = ({
   weather,
@@ -17,7 +18,6 @@ const CityLine = ({
 }): React.ReactElement | null => {
   const dispatch = useDispatch();
 
-  const nowDateSec = new Date().getTime() / 1000;
   useEffect(() => {
     if (weather?.id)
       dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather?.id }));
@@ -28,6 +28,7 @@ const CityLine = ({
   const { icon, description } = weather.weatherInfo.weather[0];
   const iconUrl = getIcon(icon);
   const dateString = getDate(weather.weatherInfo.dt);
+  const isLoading = weather.loadingState.isLoading;
 
   const handleClick = () => {
     dispatch(weatherActions.setCurrentCity({ cityId: weather.id }));
@@ -50,7 +51,11 @@ const CityLine = ({
       <div className={styles.image}>
         <img src={iconUrl} alt={description} />
       </div>
+
       <div className={styles.date}>{dateString}</div>
+      <Loader
+        className={`${styles.loader} ${isLoading ? styles.loaderVisible : ''}`}
+      />
       <div className={styles.imageRemove} onClick={handleRemoveClick}>
         <img src={removeIcon} alt={description} />
       </div>
