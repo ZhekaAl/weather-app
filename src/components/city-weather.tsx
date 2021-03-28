@@ -22,16 +22,17 @@ import { ReactComponent as TempMin } from '../icons/thermometer-min.svg';
 import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
 
 export default function CityWeather(): React.ReactElement | null {
-  const city: City = useSelector(getCity);
+  const city: City | undefined = useSelector(getCity);
   const weather: Weather | undefined = useSelector(getWeather);
 
   const dispatch = useDispatch();
+  const { id: weatherId } = weather ?? {};
 
   useEffect(() => {
-    if (weather?.id) {
-      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather.id }));
+    if (weatherId) {
+      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weatherId }));
     }
-  }, [weather?.id]);
+  }, [dispatch, weatherId]);
 
   if (weather === undefined || weather.weatherInfo === undefined) return null;
 

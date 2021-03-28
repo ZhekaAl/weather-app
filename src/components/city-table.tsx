@@ -18,10 +18,12 @@ const CityLine = ({
 }): React.ReactElement | null => {
   const dispatch = useDispatch();
 
+  const { id: weatherId } = weather;
+
   useEffect(() => {
-    if (weather?.id)
-      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weather?.id }));
-  }, [weather?.id]);
+    if (weatherId)
+      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weatherId }));
+  }, [weatherId, dispatch]);
 
   if (weather === undefined || weather.weatherInfo === undefined) return null;
 

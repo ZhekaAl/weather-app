@@ -7,7 +7,7 @@ import { http } from '../../utils/http';
 import { actions } from './ducks';
 
 export const fetchCitiesFunc = (): Promise<PayloadCities> =>
-  http<PayloadCities>('./cities-ru.json');
+  http<PayloadCities>('./cities-ru-public-trimmed.json');
 
 export function* fetchCities(): SagaIterator {
   const data = yield call(fetchCitiesFunc);

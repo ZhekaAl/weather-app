@@ -1,6 +1,6 @@
 import { State, City, Weather } from './types';
 
-export function getCity(state: State): City {
+export function getCity(state: State): City | undefined {
   if (state.weatherList.cityId === undefined) return undefined;
   const id: number | undefined = state.weatherList.cityId;
   const { citiesRu, errorMessage, isLoading } = state.cities;

@@ -55,7 +55,7 @@ export interface CityInner {
     lat: number;
   };
 }
-export type City = CityInner | undefined;
+export type City = CityInner;
 
 export interface Coord {
   lon: number;

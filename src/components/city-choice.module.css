@@ -1,8 +1,20 @@
-.cityInput {
-  margin: 2rem;
-  width: 20rem;
-}
-
 .autocomplete-input-wrapper {
   transition: all 0.3s ease-in-out;
+}
+
+.fastLinks {
+  display: flex;
+  margin: 1em;
+  flex-wrap: wrap;
+}
+
+.fastCityLink {
+  margin: 0.5em;
+  background: rgb(0 0 0 / 9%);
+  padding: 0.5em;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
 }

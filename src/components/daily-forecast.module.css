@@ -3,6 +3,7 @@
   overflow: scroll;
   margin: 0.5rem;
   max-width: 500px;
+  font-size: 1.2em;
 }
 
 .day {

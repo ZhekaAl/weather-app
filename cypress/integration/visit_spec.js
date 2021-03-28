@@ -3,6 +3,8 @@
 /// <reference types="cypress" />
 
 const classNameStartWith=(name)=>`div[class^='${name}']`;
+const inputClassNameStartWith=(name)=>`input[class^='${name}']`;
+const liClassNameStartWith=(name)=>`li[class^='${name}']`;
 
 describe('E2E Test', () => {
     
@@ -12,9 +14,12 @@ describe('E2E Test', () => {
         .should('have.class', 'buttonMenu')
         
         cy.get('.buttonMenu').click()
-        .get('.autocomplete-input')
+
+        cy.get('.button-about').click()
+
+        cy.get(inputClassNameStartWith('autocomplete_inputText'))
         .type('Санкт')
-        .get('.suggestion-item')
+        .get(liClassNameStartWith('autocomplete_suggestionElement'))
         .should('have.text', 'Санкт-Петербург')
         .click()
         .get(classNameStartWith('city-table'))
