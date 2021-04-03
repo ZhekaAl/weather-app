@@ -8,5 +8,5 @@ import { actions as actionsWeather } from './weather/ducks';
 
 export function* sagas(): SagaIterator<void> {
   yield all([takeEvery(actionsCities.fetchCitiesStart, fetchCities)]);
-  yield all([takeEvery(actionsWeather.fetchWeatherCityStart, fetchWeather)]);
+  // yield all([takeEvery(actionsWeather.fetchWeatherCityStart, fetchWeather)]);
 }

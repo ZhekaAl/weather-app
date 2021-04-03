@@ -22,3 +22,7 @@ export function getWeather(state: State): Weather | undefined {
   const id: number = state.weatherList.cityId;
   return state.weatherList.weatherList.find((el) => el.id === id);
 }
+
+export function getCityId(state: State): number | undefined {
+  return state.weatherList.cityId;
+}

@@ -9,7 +9,6 @@ import { ReactComponent as MenuBtnComp } from './ui-components/icons/menu.svg';
 import { ReactComponent as BackBtnComp } from './ui-components/icons/back-button.svg';
 import './App.css';
 
-
 function App(): React.ReactElement {
   const [leftMenuVisible, setleftMenuVisible] = useState(false);
   const showLeftMenu = useCallback(() => setleftMenuVisible(true), [

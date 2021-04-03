@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
+
 import styles from './city-table.module.css';
 import { State, Weather } from '../store/types';
 import { actions as weatherActions } from '../store/weather/ducks';
+
+import { fetchWeatherCityApi } from '../api/api';
 
 import { getDate, getIcon } from '../utils/utils';
 
@@ -10,7 +14,7 @@ import removeIcon from '../icons/remove.svg';
 import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
 
 const CityLine = ({
-  weather,
+  weather: weatherRedux,
   closeDrawer,
 }: {
   weather: Weather;
@@ -18,19 +22,23 @@ const CityLine = ({
 }): React.ReactElement | null => {
   const dispatch = useDispatch();
 
-  const { id: weatherId } = weather;
+  const { id: weatherId } = weatherRedux;
 
-  useEffect(() => {
-    if (weatherId)
-      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weatherId }));
-  }, [weatherId, dispatch]);
+  const queryWeatherCity = useQuery(
+    ['weatherCity', weatherId],
+    () => fetchWeatherCityApi(weatherId as number),
+    { enabled: !!weatherId },
+  );
 
-  if (weather === undefined || weather.weatherInfo === undefined) return null;
+  const weather = queryWeatherCity.data;
 
-  const { icon, description } = weather.weatherInfo.weather[0];
+  const isLoading = queryWeatherCity.isFetching || queryWeatherCity.isLoading;
+
+  if (weather === undefined) return null;
+
+  const { icon, description } = weather.weather[0];
   const iconUrl = getIcon(icon);
-  const dateString = getDate(weather.weatherInfo.dt);
-  const isLoading = weather.loadingState.isLoading;
+  const dateString = getDate(weather.dt);
 
   const handleClick = () => {
     dispatch(weatherActions.setCurrentCity({ cityId: weather.id }));
@@ -45,11 +53,8 @@ const CityLine = ({
 
   return (
     <div className={styles.cityLine} onClick={handleClick}>
-      <div className={styles.name}> {weather.weatherInfo.name}</div>
-      <div className={styles.temp}>
-        {' '}
-        {Math.round(weather.weatherInfo.main.temp)}°
-      </div>
+      <div className={styles.name}> {weather.name}</div>
+      <div className={styles.temp}> {Math.round(weather.main.temp)}°</div>
       <div className={styles.image}>
         <img src={iconUrl} alt={description} />
       </div>

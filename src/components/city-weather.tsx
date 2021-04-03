@@ -1,10 +1,17 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { useQuery } from 'react-query';
 
 import { getTime, getDate, getPressure, getIcon } from '../utils/utils';
-import { getCity, getWeather } from '../store/selectors';
-import { City, Weather } from '../store/types';
-import { actions as weatherActions } from '../store/weather/ducks';
+import { getCityId } from '../store/selectors';
+import { Coord } from '../store/types';
+
+import {
+  fetchCitiesFunc,
+  fetchForecastCityApi,
+  fetchWeatherCityApi,
+} from '../api/api';
 
 import styles from './city-weather.module.css';
 import { HourlyForecast } from './hourly-forecast';
@@ -22,41 +29,69 @@ import { ReactComponent as TempMin } from '../icons/thermometer-min.svg';
 import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
 
 export default function CityWeather(): React.ReactElement | null {
-  const city: City | undefined = useSelector(getCity);
-  const weather: Weather | undefined = useSelector(getWeather);
+  const cityId = useSelector(getCityId);
 
-  const dispatch = useDispatch();
-  const { id: weatherId } = weather ?? {};
+  const queryCities = useQuery('cities', fetchCitiesFunc);
+  const citiesRu = queryCities.data || [];
 
-  useEffect(() => {
-    if (weatherId) {
-      dispatch(weatherActions.fetchWeatherCityStart({ cityId: weatherId }));
-    }
-  }, [dispatch, weatherId]);
+  const city = citiesRu.find((city) => {
+    if (city === undefined) return false;
+    const { id: elId } = city;
+    if (cityId === elId) return true;
+    return false;
+  });
 
-  if (weather === undefined || weather.weatherInfo === undefined) return null;
+  const { id: weatherId } = city ?? {};
 
-  const { icon, description } = weather.weatherInfo.weather[0];
+  const queryWeatherCity = useQuery(
+    ['weatherCity', weatherId],
+    () => fetchWeatherCityApi(weatherId as number),
+    { enabled: !!weatherId },
+  );
 
-  const dateString = getDate(weather.weatherInfo.dt);
+  const { coord } = queryWeatherCity.data ?? {};
 
-  const isLoading = weather.loadingState.isLoading;
+  const queryForecastCity = useQuery(
+    ['forecastCity', coord],
+    () => fetchForecastCityApi(coord as Coord),
+    { enabled: !!coord },
+  );
 
-  const sunrise = getTime(weather.weatherInfo.sys.sunrise);
-  const sunset = getTime(weather.weatherInfo.sys.sunset);
+  const weather = queryWeatherCity.data;
 
-  const pressureString = getPressure(weather.weatherInfo.main.pressure);
+  const forecast = queryForecastCity.data;
+
+  const isLoading =
+    queryWeatherCity.isFetching ||
+    queryWeatherCity.isLoading ||
+    queryForecastCity.isLoading ||
+    queryForecastCity.isFetching;
+
+  if (weather === undefined) return null;
+
+  const { icon, description } = weather.weather[0];
+
+  const dateString = getDate(weather.dt);
+
+  // const isLoading = weather.loadingState.isLoading;
+
+  const sunrise = getTime(weather.sys.sunrise);
+  const sunset = getTime(weather.sys.sunset);
+
+  const pressureString = getPressure(weather.main.pressure);
   const iconUrl = getIcon(icon);
 
   return (
     <div className={styles.weather}>
       <div className={styles.city}>{city && city.rusName}</div>
-
+      {/*
+       *в отдельный компонент
+       */}
       <div className={styles.weatherInfo}>
         <div className={styles.left}>
           <div className={styles.row}>
             <div className={styles.temp}>
-              {`${Math.round(weather.weatherInfo.main.temp)}°`}
+              {`${Math.round(weather.main.temp)}°`}
             </div>
             <div className={styles.image}>
               <img src={iconUrl} alt={description} />
@@ -67,19 +102,19 @@ export default function CityWeather(): React.ReactElement | null {
               <div className={styles.rowInfo}>
                 <FeelsLike className={styles.iconInfo} />
                 <div className={styles.textInfo}>
-                  {Math.round(weather.weatherInfo.main.feels_like)}°
+                  {Math.round(weather.main.feels_like)}°
                 </div>
               </div>
               <div className={styles.rowInfo}>
                 <TempMax className={styles.iconInfo} />
                 <div className={styles.textInfo}>
-                  {Math.round(weather.weatherInfo.main.temp_max)}°
+                  {Math.round(weather.main.temp_max)}°
                 </div>
               </div>
               <div className={styles.rowInfo}>
                 <TempMin className={styles.iconInfo} />
                 <div className={styles.textInfo}>
-                  {Math.round(weather.weatherInfo.main.temp_min)}°
+                  {Math.round(weather.main.temp_min)}°
                 </div>
               </div>
             </div>
@@ -87,13 +122,13 @@ export default function CityWeather(): React.ReactElement | null {
               <div className={styles.rowInfo}>
                 <Humidity className={styles.iconInfo} />
                 <div className={styles.textInfo}>
-                  {weather.weatherInfo.main.humidity}%,{' '}
+                  {weather.main.humidity}%,{' '}
                 </div>
               </div>
               <div className={styles.rowInfo}>
                 <Windsock className={styles.iconInfo} />
                 <div className={styles.textInfo}>
-                  {Math.round(weather.weatherInfo.wind.speed)}м/с
+                  {Math.round(weather.wind.speed)}м/с
                 </div>
               </div>
               <div className={styles.rowInfo}>
@@ -120,8 +155,8 @@ export default function CityWeather(): React.ReactElement | null {
         </div>
       </div>
 
-      <HourlyForecast hourlyForecast={weather?.forecast?.hourly || []} />
-      <DailyForecast dailyForecast={weather?.forecast?.daily || []} />
+      <HourlyForecast hourlyForecast={forecast?.hourly || []} />
+      <DailyForecast dailyForecast={forecast?.daily || []} />
     </div>
   );
 }

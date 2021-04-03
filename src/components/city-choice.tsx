@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
+
+import { fetchCitiesFunc } from '../api/api';
 
 import { City, CityInner, State } from '../store/types';
 import { actions as citiesActions } from '../store/cities/ducks';
@@ -38,15 +41,19 @@ export default function CityChoice({
   const checkCityIsValid = (id: number): boolean =>
     cities.findIndex((city) => city?.id === id) >= 0;
 
-  const cities: City[] = useSelector(
-    (state: State) => state.cities.citiesRu || [],
-  );
+  const queryCities = useQuery('cities', fetchCitiesFunc);
+
+  // const cities: City[] = useSelector(
+  //   (state: State) => state.cities.citiesRu || [],
+  // );
+
+  const cities = queryCities.data || [];
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(citiesActions.fetchCitiesStart());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(citiesActions.fetchCitiesStart());
+  // }, [dispatch]);
 
   const chooseCity = (id: number) => {
     dispatch(
