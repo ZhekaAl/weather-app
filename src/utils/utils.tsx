@@ -53,3 +53,23 @@ export function getIcon(name: string): string {
 export function getTempString(temp: number): string {
   return `${Math.round(temp)}°`;
 }
+
+export function getWindDirection(degree: number): string {
+  if (degree < 11.25 || degree > 348.75) return 'С';
+  else if (degree < 33.75) return 'CCВ';
+  else if (degree < 56.25) return 'CВ';
+  else if (degree < 78.25) return 'ВCВ';
+  else if (degree < 101.25) return 'В';
+  else if (degree < 123.75) return 'ВЮВ';
+  else if (degree < 146.25) return 'ЮВ';
+  else if (degree < 168.75) return 'ЮВЮ';
+  else if (degree < 191.25) return 'Ю';
+  else if (degree < 213.75) return 'ЮЮЗ';
+  else if (degree < 236.25) return 'ЮЗ';
+  else if (degree < 258.75) return 'ЗЮЗ';
+  else if (degree < 281.25) return 'З';
+  else if (degree < 303.75) return 'ЗСЗ';
+  else if (degree < 326.25) return 'СЗ';
+  else if (degree < 348.75) return 'ССЗ';
+  else return '';
+}
