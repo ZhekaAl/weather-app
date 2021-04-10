@@ -1,6 +1,7 @@
 Simple weather web-app.
 
-CRA + Typescript + Redux + Redux-saga
+last version app with
+CRA + Typescript + Redux Toolkit + Redux-saga
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
