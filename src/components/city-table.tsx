@@ -1,10 +1,9 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 
+import { СitiesContext } from '../store/cities/cities-provider';
+
 import styles from './city-table.module.css';
-import { State, Weather } from '../store/types';
-import { actions as weatherActions } from '../store/weather/ducks';
 
 import { fetchWeatherCityApi } from '../api/api';
 
@@ -14,41 +13,44 @@ import removeIcon from '../icons/remove.svg';
 import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
 
 const CityLine = ({
-  weather: weatherRedux,
+  cityId,
   closeDrawer,
 }: {
-  weather: Weather;
+  cityId: number;
   closeDrawer: () => void;
 }): React.ReactElement | null => {
-  const dispatch = useDispatch();
-
-  const { id: weatherId } = weatherRedux;
+  const { setCurrentCity, removeCity } = useContext(СitiesContext);
 
   const queryWeatherCity = useQuery(
-    ['weatherCity', weatherId],
-    () => fetchWeatherCityApi(weatherId as number),
-    { enabled: !!weatherId },
+    ['weatherCity', cityId],
+    () => fetchWeatherCityApi(cityId),
+    { enabled: !!cityId },
   );
 
   const weather = queryWeatherCity.data;
 
   const isLoading = queryWeatherCity.isFetching || queryWeatherCity.isLoading;
 
-  if (weather === undefined) return null;
+  if (weather === undefined)
+    return (
+      <div className={styles.cityLine}>
+        <Loader className={`${styles.loader} ${styles.loaderVisible}`} />
+      </div>
+    );
 
   const { icon, description } = weather.weather[0];
   const iconUrl = getIcon(icon);
   const dateString = getDate(weather.dt);
 
   const handleClick = () => {
-    dispatch(weatherActions.setCurrentCity({ cityId: weather.id }));
+    setCurrentCity(weather.id);
     closeDrawer();
   };
 
   const handleRemoveClick = (event: React.SyntheticEvent) => {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
-    dispatch(weatherActions.removeCity({ cityId: weather.id }));
+    removeCity(weather.id);
   };
 
   return (
@@ -75,13 +77,12 @@ export const CitiesTable = ({
 }: {
   closeDrawer: () => void;
 }): React.ReactElement => {
-  const weatherList: Weather[] = useSelector(
-    (state: State) => state.weatherList.weatherList,
-  );
+  const { cities } = useContext(СitiesContext);
+
   return (
     <div className={styles.table}>
-      {weatherList.map((el) => (
-        <CityLine key={el.id} weather={el} closeDrawer={closeDrawer} />
+      {cities.map((id) => (
+        <CityLine key={id} cityId={id} closeDrawer={closeDrawer} />
       ))}
     </div>
   );

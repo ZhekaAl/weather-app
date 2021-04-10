@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 
 import { fetchCitiesFunc } from '../api/api';
-
-import { City, CityInner, State } from '../store/types';
-import { actions as citiesActions } from '../store/cities/ducks';
-import { actions as weatherActions } from '../store/weather/ducks';
+import { СitiesContext } from '../store/cities/cities-provider';
+import { CityInner } from '../store/types';
 
 import { Autocomplete, SuggestionElement } from '../ui-components/autocomplete';
 
@@ -43,24 +40,13 @@ export default function CityChoice({
 
   const queryCities = useQuery('cities', fetchCitiesFunc);
 
-  // const cities: City[] = useSelector(
-  //   (state: State) => state.cities.citiesRu || [],
-  // );
+  const { addCity, setCurrentCity } = useContext(СitiesContext);
 
   const cities = queryCities.data || [];
 
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(citiesActions.fetchCitiesStart());
-  // }, [dispatch]);
-
   const chooseCity = (id: number) => {
-    dispatch(
-      weatherActions.fetchWeatherCityStart({
-        cityId: id,
-      }),
-    );
+    addCity(id);
+    setCurrentCity(id);
     onClose();
   };
 

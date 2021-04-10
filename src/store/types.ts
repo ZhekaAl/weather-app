@@ -3,6 +3,11 @@ export interface Action<P> {
   payload?: P;
 }
 
+export type CitiesState = {
+  currentCity: number;
+  citiesList: number[];
+};
+
 interface LoadingState {
   errorMessage: string;
   isLoading: boolean;

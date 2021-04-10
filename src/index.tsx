@@ -4,21 +4,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { Provider } from 'react-redux';
-
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import store from './store/store';
+import { CitiesProvider } from './store/cities/cities-provider';
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <CitiesProvider>
         <App />
-      </QueryClientProvider>
-    </Provider>
+      </CitiesProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
