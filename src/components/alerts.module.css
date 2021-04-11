@@ -1,0 +1,15 @@
+.alert {
+  margin: 1rem;
+}
+.title {
+  font-size: 1.2rem;
+  margin: 0 5px;
+}
+
+.description {
+}
+
+.firstLine {
+  display: flex;
+  align-items: center;
+}

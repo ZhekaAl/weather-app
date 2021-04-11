@@ -16,6 +16,7 @@ import styles from './city-weather.module.css';
 import { HourlyForecast } from './hourly-forecast';
 import { DailyForecast } from './daily-forecast';
 import CurrentWeather from './current-weather';
+import { Alerts } from './alerts';
 
 export default function CityWeather(): React.ReactElement | null {
   const { currentCity } = useContext(СitiesContext);
@@ -62,6 +63,7 @@ export default function CityWeather(): React.ReactElement | null {
     <div className={styles.weather}>
       <div className={styles.city}>{city && city.rusName}</div>
       <CurrentWeather weather={weather} isLoading={isLoading} />
+      <Alerts alerts={forecast?.alerts ?? []} />
       <HourlyForecast hourlyForecast={forecast?.hourly || []} />
       <DailyForecast dailyForecast={forecast?.daily || []} />
     </div>

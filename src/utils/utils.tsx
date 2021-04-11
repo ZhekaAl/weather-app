@@ -13,6 +13,14 @@ export function getTime(timeInSecond: number): string {
   });
 }
 
+export function getShortDate(timeInSecond: number): string {
+  return new Date(timeInSecond * 1000).toLocaleTimeString('ru-RU', {
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
 export function getDate(timeInSecond: number): string {
   const dateString = new Date(timeInSecond * 1000).toLocaleString('ru-RU', {});
   return dateString;
@@ -72,4 +80,8 @@ export function getWindDirection(degree: number): string {
   else if (degree < 326.25) return 'СЗ';
   else if (degree < 348.75) return 'ССЗ';
   else return '';
+}
+
+export function hasCyrillic(text: string): boolean {
+  return /[а-я]/i.test(text);
 }

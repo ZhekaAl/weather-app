@@ -15,7 +15,6 @@ import { WeatherInner } from '../store/types';
 
 import {
   getTime,
-  getDate,
   getPressure,
   getIcon,
   getWindDirection,
@@ -32,7 +31,7 @@ export default function CurrentWeather({
 }: Props): React.ReactElement | null {
   const { icon, description } = weather.weather[0];
 
-  const dateString = getDate(weather.dt);
+  const dateString = getTime(weather.dt);
 
   const sunrise = getTime(weather.sys.sunrise);
   const sunset = getTime(weather.sys.sunset);
