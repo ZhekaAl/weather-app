@@ -62,7 +62,11 @@ export default function CityWeather(): React.ReactElement | null {
   return (
     <div className={styles.weather}>
       <div className={styles.city}>{city && city.rusName}</div>
-      <CurrentWeather weather={weather} isLoading={isLoading} />
+      <CurrentWeather
+        isLoading={isLoading}
+        uvi={forecast?.hourly?.[0]?.uvi}
+        weather={weather}
+      />
       <Alerts alerts={forecast?.alerts ?? []} />
       <HourlyForecast hourlyForecast={forecast?.hourly || []} />
       <DailyForecast dailyForecast={forecast?.daily || []} />

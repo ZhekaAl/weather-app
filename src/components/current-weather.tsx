@@ -3,6 +3,8 @@ import styles from './city-weather.module.css';
 
 import { ReactComponent as Sunrise } from '../icons/sunrise.svg';
 import { ReactComponent as Sunset } from '../icons/sunset.svg';
+import { ReactComponent as DayLight } from '../icons/daylight.svg';
+import { ReactComponent as UVI } from '../icons/ultraviolet.svg';
 import { ReactComponent as Windsock } from '../icons/windsock.svg';
 import { ReactComponent as Humidity } from '../icons/humidity.svg';
 import { ReactComponent as Pressure } from '../icons/pressure.svg';
@@ -14,20 +16,23 @@ import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg
 import { WeatherInner } from '../store/types';
 
 import {
-  getTime,
-  getPressure,
   getIcon,
+  getHoursBetween,
+  getPressure,
+  getTime,
   getWindDirection,
 } from '../utils/utils';
 
 type Props = {
-  weather: WeatherInner;
   isLoading: boolean;
+  weather: WeatherInner;
+  uvi?: number;
 };
 
 export default function CurrentWeather({
-  weather,
   isLoading,
+  weather,
+  uvi,
 }: Props): React.ReactElement | null {
   const { icon, description } = weather.weather[0];
 
@@ -35,6 +40,11 @@ export default function CurrentWeather({
 
   const sunrise = getTime(weather.sys.sunrise);
   const sunset = getTime(weather.sys.sunset);
+
+  const dayLightHours = getHoursBetween(
+    weather.sys.sunrise,
+    weather.sys.sunset,
+  );
 
   const pressureText = getPressure(weather.main.pressure);
 
@@ -72,6 +82,10 @@ export default function CurrentWeather({
                 {Math.round(weather.main.temp_min)}°
               </div>
             </div>
+            <div className={styles.rowInfo}>
+              <UVI className={styles.iconInfo} />
+              <div className={styles.textInfo}>{uvi ?? ''}</div>
+            </div>
           </div>
           <div className={styles.row}>
             <div className={styles.rowInfo}>
@@ -96,6 +110,10 @@ export default function CurrentWeather({
             <div className={styles.rowInfo}>
               <Sunset className={styles.iconInfo} />
               <div className={styles.textInfo}>{sunset}</div>
+            </div>
+            <div className={styles.rowInfo}>
+              <DayLight className={styles.iconInfo} />
+              <div className={styles.textInfo}>{dayLightHours}</div>
             </div>
           </div>
         </div>

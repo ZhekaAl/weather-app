@@ -25,6 +25,15 @@ export function getDate(timeInSecond: number): string {
   const dateString = new Date(timeInSecond * 1000).toLocaleString('ru-RU', {});
   return dateString;
 }
+
+export const getHoursBetween = (timeStart: number, timeEnd: number): string => {
+  const hours = (timeEnd - timeStart) / 60 / 60;
+  const fullHours = Math.floor(hours);
+  const minutes = Math.round((hours - fullHours) * 60);
+  const minutesText = minutes > 0 ? `${minutes}мин` : '';
+  return `${fullHours}ч ${minutesText}`;
+};
+
 export function getDayMonth(timeInSecond: number): string {
   const date = new Date(timeInSecond * 1000);
   const monthNumber = date.getMonth() + 1;
