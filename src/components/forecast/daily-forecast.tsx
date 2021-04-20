@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styles from './daily-forecast.module.css';
-import { Daily } from '../store/types';
-import { ReactComponent as Sunrise } from '../icons/sunrise.svg';
-import { ReactComponent as Sunset } from '../icons/sunset.svg';
-import { ReactComponent as Windsock } from '../icons/windsock.svg';
-import { ReactComponent as Humidity } from '../icons/humidity.svg';
-import { ReactComponent as Pressure } from '../icons/pressure.svg';
+import { Daily } from '../../store/types';
+
+import { ReactComponent as Sunrise } from '../../icons/sunrise.svg';
+import { ReactComponent as Sunset } from '../../icons/sunset.svg';
+import { ReactComponent as Windsock } from '../../icons/windsock.svg';
+import { ReactComponent as Humidity } from '../../icons/humidity.svg';
+import { ReactComponent as Pressure } from '../../icons/pressure.svg';
 import {
   getTime,
   getTempString,
@@ -13,7 +14,7 @@ import {
   getWeekDay,
   getPressure,
   getDayMonth,
-} from '../utils/utils';
+} from '../../utils/utils';
 
 const Header = (): React.ReactElement => (
   <div className={styles.header}>
@@ -58,19 +59,15 @@ const DailyBlock = ({ daily }: { daily: Daily }): React.ReactElement => {
   );
 };
 
-export function DailyForecast({
+export const DailyForecast = ({
   dailyForecast,
 }: {
   dailyForecast: Daily[];
-}): React.ReactElement {
-  const dailyForecastNext = dailyForecast.slice(1) || [];
-
-  return (
-    <div className={styles.dailyForecast}>
-      <Header />
-      {dailyForecastNext.map((el) => {
-        return <DailyBlock key={el.dt} daily={el} />;
-      })}
-    </div>
-  );
-}
+}): ReactElement => (
+  <div className={styles.dailyForecast}>
+    <Header />
+    {dailyForecast.map((el) => {
+      return <DailyBlock key={el.dt} daily={el} />;
+    })}
+  </div>
+);

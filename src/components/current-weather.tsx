@@ -1,6 +1,17 @@
 import React from 'react';
 import styles from './city-weather.module.css';
 
+import { useCurrentWeather } from '../hooks/use-current-weather';
+import {
+  getIcon,
+  getHoursBetween,
+  getPressure,
+  getTime,
+  getWindDirection,
+} from '../utils/utils';
+
+import { LoadingInfo } from './loading-info';
+
 import { ReactComponent as Sunrise } from '../icons/sunrise.svg';
 import { ReactComponent as Sunset } from '../icons/sunset.svg';
 import { ReactComponent as DayLight } from '../icons/daylight.svg';
@@ -11,53 +22,48 @@ import { ReactComponent as Pressure } from '../icons/pressure.svg';
 import { ReactComponent as FeelsLike } from '../icons/temperature-feels-like.svg';
 import { ReactComponent as TempMax } from '../icons/thermometer-max.svg';
 import { ReactComponent as TempMin } from '../icons/thermometer-min.svg';
-
 import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
-import { WeatherInner } from '../store/types';
 
-import {
-  getIcon,
-  getHoursBetween,
-  getPressure,
-  getTime,
-  getWindDirection,
-} from '../utils/utils';
+export default function CurrentWeather(): React.ReactElement | null {
+  const { queryWeatherCity, queryForecastCity } = useCurrentWeather();
 
-type Props = {
-  isLoading: boolean;
-  weather: WeatherInner;
-  uvi?: number;
-};
+  const { isFetching, isLoading, isIdle, data: weather } = queryWeatherCity;
 
-export default function CurrentWeather({
-  isLoading,
-  weather,
-  uvi,
-}: Props): React.ReactElement | null {
-  const { icon, description } = weather.weather[0];
+  const { data: forecast } = queryForecastCity;
 
-  const dateString = getTime(weather.dt);
+  const uvi = forecast?.hourly?.[0]?.uvi ?? '-';
 
-  const sunrise = getTime(weather.sys.sunrise);
-  const sunset = getTime(weather.sys.sunset);
+  if (isIdle) return <LoadingInfo text="Ожидание загрузки данных погоды" />;
+  if (isLoading) return <LoadingInfo text="Загружаются данные погоды" />;
+  if (!weather) return null;
 
-  const dayLightHours = getHoursBetween(
-    weather.sys.sunrise,
-    weather.sys.sunset,
-  );
+  const {
+    dt,
+    main: { feels_like, temp, temp_max, temp_min, humidity, pressure },
+    sys: { sunrise, sunset },
+    wind,
+    weather: weatherArr,
+  } = weather;
 
-  const pressureText = getPressure(weather.main.pressure);
+  const { icon, description } = weatherArr[0];
 
-  const windDirection = getWindDirection(weather.wind.deg);
-  const windText = `${Math.round(weather.wind.speed)}м/с, ${windDirection}`;
+  const dateString = getTime(dt);
+
+  const sunriseText = getTime(sunrise);
+  const sunsetText = getTime(sunset);
+
+  const dayLightHours = getHoursBetween(sunrise, sunset);
+
+  const pressureText = getPressure(pressure);
+
+  const windDirection = getWindDirection(wind.deg);
+  const windText = `${Math.round(wind.speed)}м/с, ${windDirection}`;
   const iconUrl = getIcon(icon);
   return (
     <div className={styles.weatherInfo}>
       <div className={styles.left}>
         <div className={styles.row}>
-          <div className={styles.temp}>
-            {`${Math.round(weather.main.temp)}°`}
-          </div>
+          <div className={styles.temp}>{`${Math.round(temp)}°`}</div>
           <div className={styles.image}>
             <img src={iconUrl} alt={description} />
           </div>
@@ -66,31 +72,25 @@ export default function CurrentWeather({
           <div className={styles.row}>
             <div className={styles.rowInfo}>
               <FeelsLike className={styles.iconInfo} />
-              <div className={styles.textInfo}>
-                {Math.round(weather.main.feels_like)}°
-              </div>
+              <div className={styles.textInfo}>{Math.round(feels_like)}°</div>
             </div>
             <div className={styles.rowInfo}>
               <TempMax className={styles.iconInfo} />
-              <div className={styles.textInfo}>
-                {Math.round(weather.main.temp_max)}°
-              </div>
+              <div className={styles.textInfo}>{Math.round(temp_max)}°</div>
             </div>
             <div className={styles.rowInfo}>
               <TempMin className={styles.iconInfo} />
-              <div className={styles.textInfo}>
-                {Math.round(weather.main.temp_min)}°
-              </div>
+              <div className={styles.textInfo}>{Math.round(temp_min)}°</div>
             </div>
             <div className={styles.rowInfo}>
               <UVI className={styles.iconInfo} />
-              <div className={styles.textInfo}>{uvi ?? ''}</div>
+              <div className={styles.textInfo}>{uvi}</div>
             </div>
           </div>
           <div className={styles.row}>
             <div className={styles.rowInfo}>
               <Humidity className={styles.iconInfo} />
-              <div className={styles.textInfo}>{weather.main.humidity}%, </div>
+              <div className={styles.textInfo}>{humidity}%, </div>
             </div>
             <div className={styles.rowInfo}>
               <Windsock className={styles.iconInfo} />
@@ -105,11 +105,11 @@ export default function CurrentWeather({
           <div className={styles.row}>
             <div className={styles.rowInfo}>
               <Sunrise className={styles.iconInfo} />
-              <div className={styles.textInfo}>{sunrise}</div>
+              <div className={styles.textInfo}>{sunriseText}</div>
             </div>
             <div className={styles.rowInfo}>
               <Sunset className={styles.iconInfo} />
-              <div className={styles.textInfo}>{sunset}</div>
+              <div className={styles.textInfo}>{sunsetText}</div>
             </div>
             <div className={styles.rowInfo}>
               <DayLight className={styles.iconInfo} />
@@ -119,7 +119,7 @@ export default function CurrentWeather({
         </div>
         <div className={styles.refreshRow}>
           <div className={styles.timeInfo}>Обновлено: {dateString}</div>
-          {isLoading && <Loader className={styles.loader} />}
+          {isFetching && <Loader className={styles.loader} />}
         </div>
       </div>
     </div>

@@ -1,0 +1,16 @@
+.loaderBlock {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderDescription {
+  margin: 5px;
+  font-size: 1.2rem;
+}
+
+.loader {
+  margin: 5px;
+}

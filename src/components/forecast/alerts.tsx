@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 
-import { Alert } from '../store/types';
-import { ReactComponent as AlertIcon } from '../icons/alert.svg';
-import { getShortDate, hasCyrillic } from '../utils/utils';
+import { Alert } from '../../store/types';
+import { ReactComponent as AlertIcon } from '../../icons/alert.svg';
+import { getShortDate, hasCyrillic } from '../../utils/utils';
 import styles from './alerts.module.css';
 
 const AlertItem = ({ alert }: { alert: Alert }): ReactElement => {
@@ -33,7 +33,7 @@ export function Alerts({
   return (
     <>
       {filteredAlerts.map((alert) => (
-        <AlertItem key={alert.event} alert={alert} />
+        <AlertItem key={alert.event + alert.description} alert={alert} />
       ))}
     </>
   );

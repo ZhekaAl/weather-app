@@ -24,27 +24,27 @@ function App(): React.ReactElement {
       <MenuBtnComp className="buttonMenu" fill="#000" onClick={showLeftMenu} />
       <Drawer show={leftMenuVisible} onClose={closeLeftMenu}>
         {!showCityChoice && (
-          <BackBtnComp
-            className="buttonBack"
-            fill="#000"
-            onClick={closeLeftMenu}
-          />
-        )}
-        {!showCityChoice && <CitiesTable closeDrawer={closeLeftMenu} />}
-        {!showCityChoice && (
-          <button
-            className="button-about"
-            onClick={() => setShowCityChoice(true)}
-          >
-            Добавить город
-          </button>
+          <>
+            <BackBtnComp
+              className="buttonBack"
+              fill="#000"
+              onClick={closeLeftMenu}
+            />
+            <CitiesTable closeDrawer={closeLeftMenu} />
+            <button
+              className="button-about"
+              onClick={() => setShowCityChoice(true)}
+            >
+              Добавить город
+            </button>
+          </>
         )}
         {showCityChoice && (
           <CityChoice onClose={() => setShowCityChoice(false)} />
         )}
       </Drawer>
 
-      <CityWeather />
+      <CityWeather showLeftMenu={showLeftMenu} />
     </div>
   );
 }
