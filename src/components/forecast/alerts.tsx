@@ -33,7 +33,10 @@ export function Alerts({
   return (
     <>
       {filteredAlerts.map((alert) => (
-        <AlertItem key={alert.event + alert.description} alert={alert} />
+        <AlertItem
+          key={alert.event + alert.description + alert.start}
+          alert={alert}
+        />
       ))}
     </>
   );

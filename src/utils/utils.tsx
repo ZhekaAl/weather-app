@@ -94,3 +94,7 @@ export function getWindDirection(degree: number): string {
 export function hasCyrillic(text: string): boolean {
   return /[а-я]/i.test(text);
 }
+
+export function minToMsec(minutes: number): number {
+  return 60 * 1000 * minutes;
+}

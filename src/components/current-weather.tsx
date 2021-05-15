@@ -62,7 +62,7 @@ export default function CurrentWeather(): React.ReactElement | null {
   return (
     <div className={styles.weatherInfo}>
       <div className={styles.left}>
-        <div className={styles.row}>
+        <div className={styles.headerRow}>
           <div className={styles.temp}>{`${Math.round(temp)}°`}</div>
           <div className={styles.image}>
             <img src={iconUrl} alt={description} />
@@ -86,8 +86,7 @@ export default function CurrentWeather(): React.ReactElement | null {
               <UVI className={styles.iconInfo} />
               <div className={styles.textInfo}>{uvi}</div>
             </div>
-          </div>
-          <div className={styles.row}>
+
             <div className={styles.rowInfo}>
               <Humidity className={styles.iconInfo} />
               <div className={styles.textInfo}>{humidity}%, </div>
@@ -100,9 +99,6 @@ export default function CurrentWeather(): React.ReactElement | null {
               <Pressure className={styles.iconInfo} />
               <div className={styles.textInfo}>{pressureText}</div>
             </div>
-          </div>
-
-          <div className={styles.row}>
             <div className={styles.rowInfo}>
               <Sunrise className={styles.iconInfo} />
               <div className={styles.textInfo}>{sunriseText}</div>

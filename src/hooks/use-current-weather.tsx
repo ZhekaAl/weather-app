@@ -12,6 +12,8 @@ import {
   fetchWeatherCityApi,
 } from '../api/api';
 
+import { minToMsec } from '../utils/utils';
+
 type WeatherCache = {
   city?: CityInner;
   queryWeatherCity: UseQueryResult<WeatherInner, unknown>;
@@ -21,7 +23,10 @@ type WeatherCache = {
 export function useCurrentWeather(): WeatherCache {
   const { currentCity } = useContext(СitiesContext);
 
-  const queryCities = useQuery('cities', fetchCitiesFunc);
+  const queryCities = useQuery('cities', fetchCitiesFunc, {
+    refetchOnWindowFocus: false,
+    staleTime: minToMsec(1000),
+  });
   const citiesRu = queryCities.data || [];
 
   const city = citiesRu.find((city) => {
@@ -36,7 +41,10 @@ export function useCurrentWeather(): WeatherCache {
   const queryWeatherCity = useQuery(
     ['weatherCity', weatherId],
     () => fetchWeatherCityApi(weatherId as number),
-    { enabled: !!weatherId },
+    {
+      enabled: !!weatherId,
+      staleTime: minToMsec(5),
+    },
   );
 
   const { coord } = queryWeatherCity.data ?? {};
@@ -44,7 +52,10 @@ export function useCurrentWeather(): WeatherCache {
   const queryForecastCity = useQuery(
     ['forecastCity', coord],
     () => fetchForecastCityApi(coord as Coord),
-    { enabled: !!coord },
+    {
+      enabled: !!coord,
+      staleTime: minToMsec(5),
+    },
   );
 
   return {

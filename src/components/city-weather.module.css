@@ -60,6 +60,15 @@
 
 .row {
   display: flex;
+  flex-shrink: 0;
+  margin: 0.5em;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.headerRow {
+  display: flex;
   flex-grow: 1;
   margin: 0.5em;
 }

@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { CitiesProvider } from './store/cities/cities-provider';
 
@@ -16,6 +17,7 @@ ReactDOM.render(
       <CitiesProvider>
         <App />
       </CitiesProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root'),

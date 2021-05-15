@@ -7,7 +7,7 @@ import styles from './city-table.module.css';
 
 import { fetchWeatherCityApi } from '../api/api';
 
-import { getDate, getIcon } from '../utils/utils';
+import { getDate, getIcon, minToMsec } from '../utils/utils';
 
 import removeIcon from '../icons/remove.svg';
 import { ReactComponent as Loader } from '../ui-components/icons/loader-oval.svg';
@@ -25,7 +25,7 @@ const CityLine = ({
   const queryWeatherCity = useQuery(
     ['weatherCity', cityId],
     () => fetchWeatherCityApi(cityId),
-    { enabled: !!cityId, refetchOnMount: false },
+    { enabled: !!cityId, staleTime: minToMsec(15) },
   );
 
   const weather = queryWeatherCity.data;

@@ -13,8 +13,7 @@ describe('E2E Test', () => {
         .get('.buttonMenu')
         .should('have.class', 'buttonMenu')
         
-        cy.get('.buttonMenu').click()
-
+        
         cy.get('.button-about').click()
 
         cy.get(inputClassNameStartWith('autocomplete_inputText'))

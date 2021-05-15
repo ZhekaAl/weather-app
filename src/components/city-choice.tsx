@@ -40,9 +40,9 @@ export default function CityChoice({
 
   const queryCities = useQuery('cities', fetchCitiesFunc);
 
-  const { addCity, setCurrentCity } = useContext(СitiesContext);
-
   const cities = queryCities.data || [];
+
+  const { addCity, setCurrentCity } = useContext(СitiesContext);
 
   const chooseCity = (id: number) => {
     addCity(id);
