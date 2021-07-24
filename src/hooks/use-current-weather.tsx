@@ -29,12 +29,7 @@ export function useCurrentWeather(): WeatherCache {
   });
   const citiesRu = queryCities.data || [];
 
-  const city = citiesRu.find((city) => {
-    if (city === undefined) return false;
-    const { id: elId } = city;
-    if (currentCity === elId) return true;
-    return false;
-  });
+  const city = citiesRu.find((city) => currentCity === city?.id);
 
   const { id: weatherId } = city ?? {};
 

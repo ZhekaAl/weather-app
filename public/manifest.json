@@ -1,9 +1,17 @@
 {
-  "short_name": "Weather",
-  "name": "Weather forecast",
-  "icons":[
-  {"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},
-  {"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}
+  "short_name": "Погода",
+  "name": "Прогноз погоды",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ],
   "start_url": ".",
   "display": "standalone",
