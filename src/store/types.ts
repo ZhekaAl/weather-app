@@ -178,6 +178,14 @@ export interface Forecast {
   alerts: Alert[];
 }
 
+export interface StatisticsItem {
+  _id: string; //date 2021-05-20
+  daily: Daily[];
+  dt: number; //time in second
+}
+
+export type Statistics = StatisticsItem[];
+
 export interface Weather {
   loadingState: LoadingState;
   weatherInfo?: WeatherInner;

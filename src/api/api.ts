@@ -1,4 +1,10 @@
-import { Coord, Forecast, PayloadCities, WeatherInner } from '../store/types';
+import {
+  Coord,
+  Forecast,
+  PayloadCities,
+  Statistics,
+  WeatherInner,
+} from '../store/types';
 import { http } from '../utils/http';
 
 const API = 'https://next-mongo-zhekaal.vercel.app/api';
@@ -11,6 +17,11 @@ export const fetchWeatherCityApi = (id: number): Promise<WeatherInner> =>
 
 export const fetchForecastCityApi = (coord: Coord): Promise<Forecast> =>
   http<Forecast>(`${API}/weather-forecast?lat=${coord.lat}&lon=${coord.lon}`);
+
+export const fetchStatisticsCityApi = (coord: Coord): Promise<Statistics> =>
+  http<Statistics>(
+    `${API}/weather-statistics?lat=${coord.lat}&lon=${coord.lon}`,
+  );
 
 export const fetchCitiesFunc = (): Promise<PayloadCities> =>
   http<PayloadCities>('./cities-ru-public-trimmed.json');
