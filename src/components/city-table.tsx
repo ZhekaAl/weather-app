@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useQueries, UseQueryResult } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 import { СitiesContext } from '../store/cities/cities-provider';
 
@@ -71,7 +72,8 @@ const CityLine = ({
   queryWeatherCity: UseQueryResult<WeatherInner, unknown>;
   closeDrawer: () => void;
 }): React.ReactElement | null => {
-  const { setCurrentCity, removeCity } = useContext(СitiesContext);
+  const { currentCity, removeCity, setCurrentCity } = useContext(СitiesContext);
+  const history = useHistory();
 
   const { data: weather, isFetching, isIdle, isLoading } = queryWeatherCity;
 
@@ -91,9 +93,12 @@ const CityLine = ({
   const iconUrl = getIcon(icon);
   const dateString = getDate(dt);
 
+  const isCurrent = id === currentCity;
+
   const handleClick = () => {
     setCurrentCity(id);
     closeDrawer();
+    history.push('');
   };
 
   const handleRemoveClick = (event: React.SyntheticEvent) => {
@@ -103,7 +108,12 @@ const CityLine = ({
   };
 
   return (
-    <div className={styles.cityLine} onClick={handleClick}>
+    <div
+      className={`${styles.cityLine} ${
+        isCurrent ? styles.currentCityLine : ''
+      }`}
+      onClick={handleClick}
+    >
       <div className={styles.name}> {name}</div>
       <div className={styles.temp}> {Math.round(temp)}°</div>
       <div className={styles.image}>

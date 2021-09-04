@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext } from 'react';
 
 import { useLocalStorage } from '../../hooks/use-localStorage';
@@ -11,6 +12,7 @@ const citiesStateInitValue: CitiesState = {
 
 type Setter = (id: number) => void;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emptySetter: Setter = (id) => {};
 
 export type CitiesContextType = {

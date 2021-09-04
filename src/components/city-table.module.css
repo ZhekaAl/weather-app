@@ -28,6 +28,10 @@
 .cityLine:hover {
   background: aliceblue;
 }
+
+.currentCityLine {
+  background: #0f793030;
+}
 .name {
   margin: 0 1em 0 0;
   min-width: 35%;
