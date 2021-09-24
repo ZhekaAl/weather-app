@@ -1,2 +1,5 @@
-src/registerServiceWorker.js
-src/**/__tests__/**
+node_modules
+dist
+webpack
+.eslintrc.js
+webpack.config.babel.js

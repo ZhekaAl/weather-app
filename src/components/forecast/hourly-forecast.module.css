@@ -1,25 +1,25 @@
 .hourlyForecast {
-  display: flex;
-  overflow: scroll;
+    display: flex;
+    overflow: scroll;
 }
 
 .hourlyElem {
-  margin: 1rem;
+    margin: 1rem;
 }
 
 .time {
-  font-size: 1.3rem;
-  text-align: center;
+    font-size: 1.3rem;
+    text-align: center;
 }
 
 .image {
-  width: 50px;
+    width: 50px;
 }
 .image img {
-  width: 100%;
+    width: 100%;
 }
 
 .tempHourly {
-  font-size: 1.3rem;
-  text-align: center;
+    font-size: 1.3rem;
+    text-align: center;
 }

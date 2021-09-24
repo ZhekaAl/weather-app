@@ -1,103 +1,103 @@
 .table {
-  margin: 1rem;
-  max-width: 520px;
-  font-size: 0.7rem;
+    margin: 1rem;
+    max-width: 520px;
+    font-size: 0.7rem;
 }
 
 @media (min-width: 480px) {
-  .table {
-    font-size: 1rem;
-    margin: 2rem;
-  }
+    .table {
+        font-size: 1rem;
+        margin: 2rem;
+    }
 }
 
 .cityLine {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 2em;
-  line-height: 1.4;
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-  border-bottom: 1px solid #888;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2em;
+    line-height: 1.4;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    border-bottom: 1px solid #888;
 }
 .cityLine:first-child {
-  border-top: 1px solid #888;
+    border-top: 1px solid #888;
 }
 
 .cityLine:hover {
-  background: aliceblue;
+    background: aliceblue;
 }
 
 .currentCityLine {
-  background: #0f793030;
+    background: #0f793030;
 }
 .name {
-  margin: 0 1em 0 0;
-  min-width: 35%;
-  max-width: 190px;
-  word-break: break-word;
+    margin: 0 1em 0 0;
+    min-width: 35%;
+    max-width: 190px;
+    word-break: break-word;
 }
 
 .temp {
-  margin: 0 1em 0 0;
-  width: 3em;
+    margin: 0 1em 0 0;
+    width: 3em;
 }
 
 .image {
-  min-width: 50px;
-  display: flex;
-  align-items: center;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
 }
 
 .image img {
-  width: 100%;
+    width: 100%;
 }
 
 .imageRemove,
 .imageRefresh {
-  min-width: 2em;
-  display: flex;
-  align-items: center;
-  transition: all 0.3s ease-in-out;
-  margin: 0 1em 0 0;
-  border-radius: 50%;
+    min-width: 2em;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    margin: 0 1em 0 0;
+    border-radius: 50%;
 }
 .imageRemove {
-  min-width: 1em;
+    min-width: 1em;
 }
 
 .imageRemove:hover,
 .imageRefresh:hover {
-  background: #437b7b6b;
+    background: #437b7b6b;
 }
 .imageRemove img,
 .imageRefresh img {
-  width: 100%;
+    width: 100%;
 }
 
 .date {
-  font-size: 0.75em;
-  width: 8em;
-  max-width: 8em;
-  /* margin: 0 2em; */
+    font-size: 0.75em;
+    width: 8em;
+    max-width: 8em;
+    /* margin: 0 2em; */
 }
 .loader {
-  max-width: 1.5em;
-  height: 1.5em;
-  margin: 0 5px 0 0;
-  visibility: hidden;
+    max-width: 1.5em;
+    height: 1.5em;
+    margin: 0 5px 0 0;
+    visibility: hidden;
 }
 .loaderVisible {
-  visibility: visible;
+    visibility: visible;
 }
 
 .header img {
-  height: 15px;
-  opacity: 0.3;
-  transition: opacity 0.3s ease-in-out;
+    height: 15px;
+    opacity: 0.3;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .header img.visible {
-  opacity: 1;
+    opacity: 1;
 }

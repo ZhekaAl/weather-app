@@ -2,34 +2,47 @@
 /* eslint-disable prettier/prettier */
 /// <reference types="cypress" />
 
-const classNameStartWith=(name)=>`div[class^='${name}']`;
-const inputClassNameStartWith=(name)=>`input[class^='${name}']`;
-const liClassNameStartWith=(name)=>`li[class^='${name}']`;
+const classNameStartWith = (name) => `div[class^='${name}']`;
+const inputClassNameStartWith = (name) => `input[class^='${name}']`;
+const liClassNameStartWith = (name) => `li[class^='${name}']`;
 
 describe('E2E Test', () => {
-    
-    it('visit',()=>{
-        cy.visit('http://localhost:3000')
-        .get('.buttonMenu')
-        .should('have.class', 'buttonMenu')
-        
-        
-        cy.get('.button-about').click()
 
-        cy.get(inputClassNameStartWith('autocomplete_inputText'))
-        .type('Санкт')
-        .get(liClassNameStartWith('autocomplete_suggestionElement'))
-        .should('have.text', 'Санкт-Петербург')
-        .click()
-        .get(classNameStartWith('city-table'))
-        .get(classNameStartWith('city-table_cityLine'))
-        .get(classNameStartWith('city-table_name'))
-        .get(classNameStartWith('city-table_temp'))
-        .click()
-        .get(classNameStartWith('city-weather_city'))
-        .should('have.text', 'Санкт-Петербург')
-        .get(classNameStartWith('city-weather_weatherInfo'))
-        .get(classNameStartWith('hourly-forecast_hourlyForecast'))
-        .get(classNameStartWith('daily-forecast_dailyForecast'))
+    it('visit', () => {
+        cy.visit('http://localhost:3000')
+            .get('.buttonMenu')
+            .first()
+            .should('have.class', 'buttonMenu')
+
+
+        cy.get('.button-about').first().click()
+
+
+        cy.get(inputClassNameStartWith('inputText'))
+            .type('Санкт')
+            .get(liClassNameStartWith('suggestionElement'))
+            .should('have.text', 'Санкт-Петербург')
+            .click()
+
+        cy.wait(3000)
+
+        cy.get(classNameStartWith('cityLine'))
+            .eq(1)
+            .get(classNameStartWith('name'))
+            .get(classNameStartWith('temp')).eq(1)
+            .click()
+
+        cy.wait(500)
+
+        // cy.get(classNameStartWith('city'))
+        //     .should('have.text', 'Санкт-Петербург')
+
+        cy.get(classNameStartWith('weatherInfo'))
+            .get(classNameStartWith('hourlyForecast'))
+            .get(classNameStartWith('dailyForecast'))
+
+        cy.get(`${classNameStartWith('weather')}>${classNameStartWith('city')}`)
+            .should('have.text', 'Санкт-Петербург')
+
     })
-  })
+})

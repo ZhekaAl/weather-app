@@ -1,25 +1,25 @@
 .suggestionElement {
-  font-size: 1.4em;
+    font-size: 1.4em;
 
-  padding: 4px;
-  margin: 4px;
+    padding: 4px;
+    margin: 4px;
 }
 
 .activeSuggestion {
-  background-color: darkgoldenrod;
+    background-color: darkgoldenrod;
 }
 
 .minHeight {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .inputText {
-  height: 3em;
-  margin: 5px 0.5em;
-  padding: 0.5em;
-  font-size: 1.2em;
+    height: 3em;
+    margin: 5px 0.5em;
+    padding: 0.5em;
+    font-size: 1.2em;
 }
 
 .autocomplete {
-  margin: 1em;
+    margin: 1em;
 }

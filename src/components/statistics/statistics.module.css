@@ -1,77 +1,77 @@
 .dailyForecast {
-  display: block;
-  overflow: scroll;
-  margin: 0.1rem;
-  max-width: 500px;
-  font-size: 1.2em;
+    display: block;
+    overflow: scroll;
+    margin: 0.1rem;
+    max-width: 500px;
+    font-size: 1.2em;
 }
 
 .chartsWrapper {
-  display: block;
-  overflow: scroll;
-  margin: 4rem 0.1rem;
-  /* max-width: 500px; */
-  font-size: 1.2em;
+    display: block;
+    overflow: scroll;
+    margin: 4rem 0.1rem;
+    /* max-width: 500px; */
+    font-size: 1.2em;
 }
 
 .day {
-  min-width: 30px;
+    min-width: 30px;
 }
 
 .dailyElem {
-  margin: 1rem;
-  display: flex;
-  align-items: center;
+    margin: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 .time {
-  font-size: 1.5rem;
-  text-align: center;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 .textInfo {
-  width: 11%;
-  margin: 5px;
-  min-width: 30px;
+    width: 11%;
+    margin: 5px;
+    min-width: 30px;
 }
 
 .tempInfo {
-  width: 12%;
-  margin: 5px;
-  min-width: 60px;
+    width: 12%;
+    margin: 5px;
+    min-width: 60px;
 }
 
 .image {
-  width: 50px;
-  min-width: 30px;
+    width: 50px;
+    min-width: 30px;
 }
 .image img {
-  width: 100%;
+    width: 100%;
 }
 
 .tempDay {
-  width: 14%;
-  margin: 5px;
+    width: 14%;
+    margin: 5px;
 }
 
 .tempdaily {
-  font-size: 1.5rem;
-  text-align: center;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 .iconInfo {
-  width: 11%;
-  margin: 5px;
-  height: 1.5em;
-  min-width: 30px;
+    width: 11%;
+    margin: 5px;
+    height: 1.5em;
+    min-width: 30px;
 }
 
 .space {
-  width: calc(30px + 50px + 60px);
-  min-width: 130px;
+    width: calc(30px + 50px + 60px);
+    min-width: 130px;
 }
 
 .header {
-  display: flex;
-  margin: 1rem;
+    display: flex;
+    margin: 1rem;
 }
