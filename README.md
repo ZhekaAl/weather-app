@@ -4,6 +4,7 @@ CRA + Typescript
 
 1. Redux + Redux-saga - another branch redux-saga-toolkit-version
 2. Currently UseQuery + React.Context
+   last cra branch
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
