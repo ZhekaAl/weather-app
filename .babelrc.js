@@ -20,15 +20,14 @@ module.exports = (api) => {
                 },
             ],
             '@babel/preset-react',
+            '@babel/preset-typescript',
         ],
         plugins: [
             '@babel/plugin-syntax-dynamic-import',
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-proposal-export-namespace-from',
             '@babel/plugin-proposal-throw-expressions',
-            '@babel/proposal-object-rest-spread',
-            // Applies the react-refresh Babel plugin on non-production modes only
-            mode === 'development' && 'react-refresh/babel',
-        ].filter(Boolean),
+            // '@babel/proposal-object-rest-spread',
+        ]
     };
 };

@@ -2,6 +2,8 @@ import './App.css';
 
 import React, {useCallback, useState} from 'react';
 import {Link, Route, BrowserRouter as Router, Switch} from 'react-router-dom';
+import {QueryClient, QueryClientProvider} from 'react-query';
+import {ReactQueryDevtools} from 'react-query/devtools';
 
 import CityChoice from './components/city-choice';
 import {CitiesTable} from './components/city-table';
@@ -11,6 +13,13 @@ import {Statistics} from './components/statistics/statistics';
 import {Drawer} from './ui-components/drawer';
 import BackBtnComp from './ui-components/icons/back-button.component.svg';
 import MenuBtnComp from './ui-components/icons/menu.component.svg';
+import { CitiesProvider } from './store/cities/cities-provider';
+
+ const RemoteButton = React.lazy(() => import('app2/Button'));
+ const RemoteApp = React.lazy(() => import('app2/App'));
+
+const queryClient = new QueryClient();
+
 
 function App(): React.ReactElement {
     const [leftMenuVisible, setleftMenuVisible] = useState(false);
@@ -22,7 +31,11 @@ function App(): React.ReactElement {
     ]);
 
     const [showCityChoice, setShowCityChoice] = useState<boolean>(false);
+
+    
     return (
+    <QueryClientProvider client={queryClient}>
+       <CitiesProvider>
         <div className="App">
             <Router>
                 <MenuBtnComp
@@ -60,6 +73,14 @@ function App(): React.ReactElement {
                             >
                                 Графики
                             </Link>
+
+                            <Link
+                                className="button-about"
+                                to="/stat-charts-remote"
+                                onClick={closeLeftMenu}
+                            >
+                                Графики MF
+                            </Link>
                         </>
                     )}
                     {showCityChoice && (
@@ -77,9 +98,23 @@ function App(): React.ReactElement {
                     <Route exact path="/stat-charts">
                         <Chart />
                     </Route>
+                    <Route exact path="/stat-charts-remote">
+                        <>
+                             <React.Suspense fallback="Loading Button">
+                                <RemoteButton />
+                            </React.Suspense>
+
+                            <React.Suspense fallback="Loading Button">
+                                <RemoteApp />
+                            </React.Suspense> 
+                        </>
+                    </Route>
                 </Switch>
             </Router>
         </div>
+     </CitiesProvider>
+     <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
     );
 }
 
