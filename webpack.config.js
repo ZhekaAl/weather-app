@@ -142,7 +142,7 @@ module.exports = (env, argv) => {
         filename: "remoteEntry.js",
         remotes: {
           // app2: "app2@http://localhost:3002/remoteEntry.js",
-          app2: "app2@https://weather-graph-mf-host.zhekaal.ru/"
+          app2: "app2@https://weather-graph-mf-host.zhekaal.ru/remoteEntry.js"
         },
         shared: ["react", "react-dom"],
       }),
