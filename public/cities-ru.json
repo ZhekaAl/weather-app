@@ -7912,14 +7912,113 @@
     "rusName": "Алупка"
   },
   {
-        "id": 584243,
-        "name": "Adler",
-        "state": "",
-        "country": "RU",
-        "coord": {
-            "lon": 39.919998,
-            "lat": 43.43
-        },
-		"rusName": "Адлер"
-    }
+    "id": 584243,
+    "name": "Adler",
+    "state": "",
+    "country": "RU",
+    "coord": {
+      "lon": 39.919998,
+      "lat": 43.43
+    },
+    "rusName": "Адлер"
+  },
+  {
+    "id": 615532,
+    "name": "Batumi",
+    "state": "",
+    "country": "GE",
+    "coord": {
+      "lon": 41.635929,
+      "lat": 41.64159
+    },
+    "rusName": "Батуми"
+  },
+  {
+    "id": 611717,
+    "name": "Tbilisi",
+    "state": "",
+    "country": "GE",
+    "coord": {
+      "lon": 44.833679,
+      "lat": 41.694111
+    },
+    "rusName": "Тбилиси"
+  },
+  {
+    "id": 613607,
+    "name": "Kutaisi",
+    "state": "",
+    "country": "GE",
+    "coord": {
+      "lon": 42.699741,
+      "lat": 42.249611
+    },
+    "rusName": "Кутаиси"
+  },
+  {
+    "id": 614409,
+    "name": "Gudauta",
+    "state": "",
+    "country": "GE",
+    "coord": {
+      "lon": 40.62067,
+      "lat": 43.105469
+    },
+    "rusName": "Гудаута"
+  },
+  {
+    "id": 616051,
+    "name": "Yerevan",
+    "state": "",
+    "country": "AM",
+    "coord": {
+      "lon": 44.5,
+      "lat": 40.183331
+    },
+    "rusName": "Ереван"
+  },
+  {
+    "id": 616752,
+    "name": "Dilijan",
+    "state": "",
+    "country": "AM",
+    "coord": {
+      "lon": 44.863621,
+      "lat": 40.741032
+    },
+    "rusName": "Дилижан"
+  },
+  {
+    "id": 323776,
+    "name": "Antalya",
+    "state": "",
+    "country": "TR",
+    "coord": {
+      "lon": 30.71777,
+      "lat": 36.77409
+    },
+    "rusName": "Анталья"
+  },
+  {
+    "id": 301238,
+    "name": "Side",
+    "state": "",
+    "country": "TR",
+    "coord": {
+      "lon": 31.388519,
+      "lat": 36.76672
+    },
+    "rusName": "Сиде"
+  },
+  {
+    "id": 745044,
+    "name": "Istanbul",
+    "state": "",
+    "country": "TR",
+    "coord": {
+      "lon": 28.949659,
+      "lat": 41.01384
+    },
+    "rusName": "Стамбул"
+  }
 ]
