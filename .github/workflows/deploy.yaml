@@ -16,7 +16,7 @@ jobs:
       - run: npm install
       - run: CI='' npm run build
       - name: GitHub Action for Firebase
-        uses: w9jds/firebase-action@v1.5.0
+        uses: w9jds/firebase-action@latest
         with:
           args: deploy --only hosting
         env:
