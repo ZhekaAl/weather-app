@@ -31,5 +31,7 @@ Launches the e2e tests with cypress.<br />
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### TO_DO deploy
+
+To do Fix firebase github action, the problem that now it uses node v17
+To deploy 1)build 2)firebase deploy
